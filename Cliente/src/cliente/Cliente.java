@@ -40,18 +40,46 @@ public class Cliente extends Conexion {
                 if (fromUser != null) {
 
                     switch (fromUser) {
-                        case "set":
-                            System.out.println("Petición valida");
+                        case "get key":
+                            System.out.println("Petición válida");
+                            out.println(fromUser);
+                            validez=false;
+                            break;
+                        case "set key value":
+                            System.out.println("Petición válida");
+                            out.println(fromUser);
+                            validez=false;
+                            break;
+                        case "del key":
+                            System.out.println("Petición válida");
+                            out.println(fromUser);
+                            validez=false;
+                            break;
+                        case "list":
+                            System.out.println("Petición válida");
                             out.println(fromUser);
                             validez=false;
                             break;
                         case "exit":
-                            System.out.println("Petición valida");
+                            System.out.println("Petición válida");
+                            out.println(fromUser);
+                            validez=false;
+                            break;
+                        case "help":
+                            System.out.println("Lista de comandos disponibles: \n"
+                                    + "get key: Operación get. Retorna el valor asociado a dicha clave.\n" 
+                                    + "set key value: Almacena (en memoria) la clave, con el valor asociado. " +
+                                    "El valor puede contener cualquier caracter, incluso caracteres especiales,tabs, y espacios en blanco.\n" 
+                                    + "del key: Elimina la clave, con su valor asociado.\n" 
+                                    + "list: Retorna la lista de todas las claves almacenadas. "+
+                                    "NO retorna los valores asociados a dichas claves.\n"
+                                    + "exit: Termina la conexión con el servidor y posteriormente, termina ejecución del programa cliente.\n"
+                                    );
                             out.println(fromUser);
                             validez=false;
                             break;
                         default:
-                            System.out.println("Esta peticion no es valida, porfavor ingresela de nuevo");
+                            System.out.println("Esta petición no es válida, por favor ingrese un comando válido o consulte los comandos disponibles con el comando 'help'");
                             break;
 
                     }

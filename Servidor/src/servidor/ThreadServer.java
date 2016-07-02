@@ -34,9 +34,36 @@ public class ThreadServer extends Thread {
                             socket.getInputStream()));
             String inputLine, outputLine;
             int i = 0;
-            out.println("Te estoy atendiendo en horabuena , dime tu petición");
+            out.println("Te estoy atendiendo en hora buena , dime tu petición");
             while ((inputLine = in.readLine()) != null) {
-                if (inputLine.equals("exit")) {
+                switch (inputLine) {
+                        case "get key":
+                            outputLine = "Bueno aun no me han implementado el comando 'get key' , espero lo hagan pronto disculpa";
+                            out.println(outputLine);
+                            break;
+                        case "set key value":
+                            outputLine = "Bueno aun no me han implementado el comando 'set key value' , espero lo hagan pronto disculpa";
+                            out.println(outputLine);
+                            break;
+                        case "del key":
+                            outputLine = "Bueno aun no me han implementado el comando 'del key' , espero lo hagan pronto disculpa";
+                            out.println(outputLine);
+                            break;
+                        case "list":
+                            outputLine = "Bueno aun no me han implementado el comando 'list' , espero lo hagan pronto disculpa";
+                            out.println(outputLine);
+                            break;
+                        case "exit":
+                            outputLine = "Bye.";
+                            out.println(outputLine);
+                            break;
+                        
+                        default:
+                            outputLine = "Comando no válido, puede ver los comandos disponibles con el comando 'help'";
+                            out.println(outputLine);
+                            break;
+                            
+                /*if (inputLine.equals("exit")) {
                     outputLine = "Bye.";
                 } else {
                     outputLine = "Bueno aun no me han implementado respuestas logicas , espero lo hagan pronto disculpa";
@@ -44,7 +71,8 @@ public class ThreadServer extends Thread {
                 out.println(outputLine);
                 if (outputLine.equals("exit")) {
                     break;
-                }
+                }*/
+            }
             }
             out.close();
             in.close();
