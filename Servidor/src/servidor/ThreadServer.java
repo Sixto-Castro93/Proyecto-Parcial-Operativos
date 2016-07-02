@@ -36,13 +36,13 @@ public class ThreadServer extends Thread {
             int i = 0;
             out.println("Te estoy atendiendo en horabuena , dime tu petición");
             while ((inputLine = in.readLine()) != null) {
-                if (inputLine.equals("chao")) {
+                if (inputLine.equals("exit")) {
                     outputLine = "Bye.";
                 } else {
                     outputLine = "Bueno aun no me han implementado respuestas logicas , espero lo hagan pronto disculpa";
                 }
                 out.println(outputLine);
-                if (outputLine.equals("Bye.")) {
+                if (outputLine.equals("exit")) {
                     break;
                 }
             }

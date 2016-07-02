@@ -45,6 +45,11 @@ public class Cliente extends Conexion {
                             out.println(fromUser);
                             validez=false;
                             break;
+                        case "exit":
+                            System.out.println("Petición valida");
+                            out.println(fromUser);
+                            validez=false;
+                            break;
                         default:
                             System.out.println("Esta peticion no es valida, porfavor ingresela de nuevo");
                             break;
