@@ -14,17 +14,21 @@ public class Conexion
     protected Socket cs; //Socket del cliente
     protected DataOutputStream salidaServidor, salidaCliente; //Flujo de datos de salida
     
-    public Conexion(String tipo) throws IOException 
+    public Conexion(String tipo) throws IOException //Constructor
     {
         if(tipo.equalsIgnoreCase("servidor"))
         {
-            ss = new ServerSocket(PUERTO);//Se crea el socket para el servidor
+            ss = new ServerSocket(PUERTO);//Se crea el socket para el servidor en puerto 1234
             cs = new Socket(); //Socket para el cliente
         }
         else
         {
-            cs = new Socket(HOST, PUERTO); 
-            //cs = new Socket("192.168.1.115", PUERTO);//IP del servidor
+            try {
+                  cs = new Socket(HOST, PUERTO); //Socket para el cliente en localhost en puerto 1234
+            } catch (Exception e) {
+                System.out.println("Este servidor no esta disponible por el momento, porfavor intenta mas tarde");
+            }
+          
         }
     }
 }

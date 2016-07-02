@@ -1,47 +1,66 @@
 package cliente;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.*;
+import java.net.*;
 
-public class Cliente extends Conexion
-{
-    public Cliente() throws IOException{super("cliente");} //Se usa el constructor para cliente de Conexion
+public class Cliente extends Conexion {
+
+    public Cliente() throws IOException {
+        super("cliente");
+    } //Se usa el constructor para cliente de Conexion
+
+    PrintWriter out = null;
+    BufferedReader in = null;
 
     public void startClient() //Método para iniciar el cliente
     {
-        try
-        {            
+        try {
+            out = new PrintWriter(cs.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
             //Flujo de datos hacia el servidor
-            salidaServidor = new DataOutputStream(cs.getOutputStream());
 
-            for (int i = 0; i < 2; i++)
-            {
-                //Se escribe en el servidor usando su flujo de datos
-                salidaServidor.writeUTF("Este es el mensaje número " + (i+1) + "\n");                
-            }           
+            //Se enviarán dos mensajes
+            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+            String fromServer;
+            String fromUser;
+            while ((fromServer = in.readLine()) != null) {
+                System.out.println("Server: " + fromServer);
+                if (fromServer.equals("Bye.")) {
+                    break;
+                }
+                boolean validez=true;
+                while (validez){
+                System.out.print("Client: ");
+                fromUser = stdIn.readLine();
+                if (fromUser != null) {
 
-            
+                    switch (fromUser) {
+                        case "set":
+                            System.out.println("Petición valida");
+                            out.println(fromUser);
+                            validez=false;
+                            break;
+                        default:
+                            System.out.println("Esta peticion no es valida, porfavor ingresela de nuevo");
+                            break;
 
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-        
-        try{
-            DataInputStream dis = new DataInputStream(cs.getInputStream());
-            String msj = dis.readUTF();
-            System.out.println(msj);
-            
+                    }
+
+                }
+                }
+            }
+            out.close();
+            in.close();
             cs.close();//Fin de la conexión
-            
-        }
-        catch (Exception e)
-        {
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            
         }
-        
-}
+
+    }
 }
