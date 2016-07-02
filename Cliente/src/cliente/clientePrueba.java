@@ -6,6 +6,8 @@
 package cliente;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,23 +16,39 @@ import java.io.IOException;
 public class clientePrueba {
     
     public static void main(String[] args) throws IOException
-    {  
-        clientePrueba cp = new clientePrueba();
-        cp.llamadas();
+    {
+    int i=0;
+    while(i<5){
+        new Thread() { 
+            public void run() {
+                clientePrueba cp = new clientePrueba();
+                try {
+                    cp.llamadas();
+                } catch (IOException ex) {
+                    Logger.getLogger(clientePrueba.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }.start();
+        i++;
+    }
+        
+        
+        
     }
     
     
     
     public void llamadas() throws IOException{
         int i=0;
-        while (i<100) {
+        
             Cliente cli = new Cliente(); 
         
             System.out.println("Iniciando cliente\n");
             cli.startClient();
-        }  
+          
         
     }
+    
     
     
     
