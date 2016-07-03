@@ -22,6 +22,7 @@ public class ThreadProducer extends Thread {
     private final int numero;
     private ServerSocket serversocket = null;
     private final ContenedorPeticiones contenedor;
+    
 
     public ThreadProducer(ServerSocket serversocket, ContenedorPeticiones contenedor, Integer numero) {
         super("ThreadServer");
@@ -33,14 +34,18 @@ public class ThreadProducer extends Thread {
     @Override
     public void run() {
         while (true) {
-
-           
-                    Socket incoming;
+            if(Servidor.validaNumServer==true)
+                break;
+            
+            Socket incoming;
             try {
                 incoming = serversocket.accept();
-                   contenedor.put(incoming);
-            } catch (IOException ex) {
-                Logger.getLogger(ThreadProducer.class.getName()).log(Level.SEVERE, null, ex);
+                contenedor.put(incoming);
+            } catch (Exception ex) {
+                System.out.println("Este servidor ya se encuentra en ejecución");
+                Servidor.validaNumServer=true;
+                break;
+                //Logger.getLogger(ThreadProducer.class.getName()).log(Level.SEVERE, null, ex);
             }
              
              

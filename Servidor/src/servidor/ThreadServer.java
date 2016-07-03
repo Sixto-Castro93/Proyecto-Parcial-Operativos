@@ -7,6 +7,7 @@ package servidor;
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -36,13 +37,14 @@ public class ThreadServer extends Thread {
                             socket.getInputStream()));
             String inputLine, outputLine;
             int i = 0;
+            String claveMap;
             out.println("Te estoy atendiendo en hora buena , dime tu petición");
             while ((inputLine = in.readLine()) != null) {
                  String[] comando=inputLine.split("\\s+");
                       String cmd = comando[0].toLowerCase();
                 switch (cmd) {
                     case "get":
-                             String clave = comando[1];
+                         String clave = comando[1];
                          outputLine=(String) base.Base.get(clave);
                         //outputLine = "Bueno aun no me han implementado el comando 'get key' , espero lo hagan pronto disculpa";
                         out.println(outputLine);
@@ -56,8 +58,17 @@ public class ThreadServer extends Thread {
                         out.println(outputLine);
                         break;
                     case "list":
-                        outputLine = "Bueno aun no me han implementado el comando 'list' , espero lo hagan pronto disculpa";
-                        out.println(outputLine);
+                        ArrayList lista;
+                        lista = new ArrayList<String>(base.Base.keySet());
+                        outputLine = "";
+                        for(i=0; i< lista.size(); i++){
+                            claveMap=(String)lista.get(i);
+                            outputLine=outputLine + "\n"+ claveMap;
+                            
+                        }
+                        //System.out.println(outputLine);
+                        out.println("lista"+" "+lista);
+                        //out.println(outputLine);
                         break;
                     case "exit":
                         outputLine = "Bye.";
