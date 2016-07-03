@@ -38,16 +38,20 @@ public class ThreadServer extends Thread {
             int i = 0;
             out.println("Te estoy atendiendo en hora buena , dime tu petición");
             while ((inputLine = in.readLine()) != null) {
-                switch (inputLine) {
-                    case "get key":
-                        outputLine = "Bueno aun no me han implementado el comando 'get key' , espero lo hagan pronto disculpa";
+                 String[] comando=inputLine.split("\\s+");
+                      String cmd = comando[0].toLowerCase();
+                switch (cmd) {
+                    case "get":
+                             String clave = comando[1];
+                         outputLine=(String) base.Base.get(clave);
+                        //outputLine = "Bueno aun no me han implementado el comando 'get key' , espero lo hagan pronto disculpa";
                         out.println(outputLine);
                         break;
-                    case "set key value":
+                    case "set":
                         outputLine = "Bueno aun no me han implementado el comando 'set key value' , espero lo hagan pronto disculpa";
                         out.println(outputLine);
                         break;
-                    case "del key":
+                    case "del":
                         outputLine = "Bueno aun no me han implementado el comando 'del key' , espero lo hagan pronto disculpa";
                         out.println(outputLine);
                         break;

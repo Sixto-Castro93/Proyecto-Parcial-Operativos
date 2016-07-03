@@ -21,11 +21,13 @@ public class ThreadConsumidor extends Thread {
     private final int numero;
     private Socket socket = null;
     private final ContenedorPeticiones contenedor;
+    private final BaseNoSql Base;
 
-    public ThreadConsumidor(ContenedorPeticiones contenedor, Integer numero) {
+    public ThreadConsumidor( BaseNoSql Base,ContenedorPeticiones contenedor, Integer numero) {
         super("ThreadConsumidor");
         this.numero = numero;
         this.contenedor = contenedor;
+        this.Base=Base;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class ThreadConsumidor extends Thread {
             try {
                 socket = contenedor.get();
                 if(socket!=null){
-                Thread hilo = new ThreadServer(socket);
+                Thread hilo = new ThreadServer(socket,Base);
                 hilo.start();
                         }
             } catch (IOException ex) {

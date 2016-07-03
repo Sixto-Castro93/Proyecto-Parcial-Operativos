@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class Servidor extends Conexion //Se hereda de conexión para hacer uso de los sockets y demás
 {
   private static ContenedorPeticiones contenedor;
+    private static BaseNoSql Base=new BaseNoSql();
     public Servidor() throws IOException {
         super("servidor");
     } //Se usa el constructor para servidor de Conexion
@@ -19,7 +20,7 @@ public class Servidor extends Conexion //Se hereda de conexión para hacer uso d
     {
         try {
             System.out.println("Esperando..."); //Esperando conexión
-            BaseNoSql Base=new BaseNoSql();
+          Base=new BaseNoSql();
             Base.iniciarBase();
             contenedor = new ContenedorPeticiones();
              ExecutorService producers = Executors.newFixedThreadPool(5);
@@ -29,7 +30,7 @@ public class Servidor extends Conexion //Se hereda de conexión para hacer uso d
       
              ExecutorService consumers = Executors.newFixedThreadPool(5);
           for (int i = 0; i < 5; i++) {
-               consumers.execute(new  ThreadConsumidor(contenedor,i));
+               consumers.execute(new  ThreadConsumidor(Base,contenedor,i));
           }
           consumers.shutdown();
           producers.shutdown();
