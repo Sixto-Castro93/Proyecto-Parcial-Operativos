@@ -8,6 +8,7 @@ package servidor;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -40,7 +41,10 @@ public class ThreadServer extends Thread {
             String claveMap;
             out.println("Te estoy atendiendo en hora buena , dime tu petición");
             while ((inputLine = in.readLine()) != null) {
-                 String[] comando=inputLine.split("\\s+");
+                System.out.println(inputLine);
+                inputLine = inputLine.substring(1, inputLine.length()-1);
+                 String[] comando=inputLine.split(",");
+                 System.out.println(Arrays.toString(comando));
                       String cmd = comando[0].toLowerCase();
                 switch (cmd) {
                     case "get":

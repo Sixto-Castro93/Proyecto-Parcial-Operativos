@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -65,9 +66,9 @@ public class Cliente extends Conexion {
                     fromUser = stdIn.readLine();
                     if (fromUser != null) {
                         String[] comando = fromUser.split("\\s+");
-                        validez = validarComandos(comando);
+                        validez = validarComandos(comando,fromUser);
                         if (validez) {
-                            out.println(fromUser);
+                            out.println(Arrays.toString(comando));
                         }
                     }
                 } while (!"exit".equals(fromUser) && !validez);
@@ -82,7 +83,7 @@ public class Cliente extends Conexion {
 
     }
 
-    private Boolean validarComandos(String[] comando) {
+    private Boolean validarComandos(String[] comando,String s) {
         String cmd = comando[0].toLowerCase();
         switch (cmd) {
             case "get":
@@ -94,14 +95,28 @@ public class Cliente extends Conexion {
                 }
             case "set":
                 if (comando.length >= 3) {
-                    return true;
+                    comando = extraerDeComando(s);
+                    if(comando!=null){
+                        return true;
+                    }
+                    else{
+                        System.out.println("Error: El comando set recibe dos parámetros de entrada");
+                        return false;
+                    }
                 } else {
                     System.out.println("Error: El comando set recibe dos parámetros de entrada");
                     return false;
                 }
             case "put":
                 if (comando.length >= 3) {
-                    return true;
+                    comando = extraerDeComando(s);
+                    if(comando!=null){
+                        return true;
+                    }
+                    else{
+                        System.out.println("Error: El comando set recibe dos parámetros de entrada");
+                        return false;
+                    }
                 } else {
                     System.out.println("Error: El comando put recibe dos parámetros de entrada");
                     return false;
@@ -148,5 +163,35 @@ public class Cliente extends Conexion {
                 System.out.println("Error: El comando " + comando[0] + " no existe");
                 return false;
         }
+    }
+    private static String[] extraerDeComando(String s){
+        ArrayList<String> cmdFinal = new ArrayList<>();
+        String[] comando = s.split("\\s+");
+        String value=new String();
+        if(comando.length>=3){
+            cmdFinal.add(comando[0]);
+            cmdFinal.add(comando[1]);
+            int cont=0;
+            int y=0;
+            while(cont<2){
+                char c = s.charAt(y);
+                if(c==' ')cont++;
+                while(c==' '){
+                    y++;
+                    c=s.charAt(y);
+                }
+                if(c!=' ')y++;
+            }
+            if(s.charAt(y)!='\"' && s.charAt(s.length()-1)!='\"')
+                return null;
+            else{
+                for(;y<s.length()-1;y++){
+                    value += s.charAt(y);
+                }
+            }
+        }
+        else return null;
+        
+        return new String[]{cmdFinal.get(0),cmdFinal.get(1),value};
     }
 }
