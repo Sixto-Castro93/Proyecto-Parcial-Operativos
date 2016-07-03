@@ -35,28 +35,21 @@ public class ContenedorPeticiones {
                 System.err.println("Contenedor: Error en get -> " + e.getMessage());
             }
         }
-        contenedovacio = Boolean.FALSE;
         if (contenido.size() != 0) {
-            contenedovacio = Boolean.TRUE;
-            tem=contenido.poll();
-            BufferedReader in = new BufferedReader(
-                new InputStreamReader(
-                        tem.getInputStream()));
-                        PrintWriter out = new PrintWriter(tem.getOutputStream(), true);
-
-        System.out.println("Contenedor saco de la  cola ");
+           notify();
+            System.out.println("Contenedor saco de la  cola ");
             return contenido.poll();
         }
-        return null;
+        else {
+            contenedovacio = Boolean.TRUE;
+        return null;}
     }
 
     public synchronized void put(Socket value) throws IOException {
 
         contenido.add(value);
         contenedovacio = Boolean.FALSE;
-                    PrintWriter out = new PrintWriter(value.getOutputStream(), true);
-        out.println("Atendido y en cola");
         System.out.println("productor puso en cola ");
-        notify();
+        notifyAll();
     }
 }

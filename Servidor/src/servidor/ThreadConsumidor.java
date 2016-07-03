@@ -16,8 +16,9 @@ import java.util.logging.Logger;
  *
  * @author emele_000
  */
-public class ThreadConsumidor extends Thread{
-        private final int numero;
+public class ThreadConsumidor extends Thread {
+
+    private final int numero;
     private Socket socket = null;
     private final ContenedorPeticiones contenedor;
 
@@ -32,7 +33,11 @@ public class ThreadConsumidor extends Thread{
         while (true) {
 
             try {
-                socket=contenedor.get();
+                socket = contenedor.get();
+                if(socket!=null){
+                Thread hilo = new ThreadServer(socket);
+                hilo.start();
+                        }
             } catch (IOException ex) {
                 Logger.getLogger(ThreadConsumidor.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -41,7 +46,7 @@ public class ThreadConsumidor extends Thread{
 //            } catch (IOException ex) {
 //                Logger.getLogger(ThreadConsumidor.class.getName()).log(Level.SEVERE, null, ex);
 //            }
-          
+
         }
     }
 }

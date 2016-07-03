@@ -18,7 +18,7 @@ public class clientePrueba {
     public static void main(String[] args) throws IOException
     {
     int i=0;
-    while(i<5){
+    while(i<20){
         new Thread() { 
             public void run() {
                 clientePrueba cp = new clientePrueba();
