@@ -44,28 +44,26 @@ public class ThreadServer extends Thread {
                       String cmd = comando[0].toLowerCase();
                 switch (cmd) {
                     case "get":
-                         String clave = comando[1];
-                         outputLine=(String) base.Base.get(clave);
+                        String clave = comando[1];
+                        outputLine=get(clave);
                         //outputLine = "Bueno aun no me han implementado el comando 'get key' , espero lo hagan pronto disculpa";
                         out.println(outputLine);
                         break;
+                    case "put":
+                        outputLine = put(comando[1],comando[2]);
+                        out.println(outputLine);
+                        break;
                     case "set":
-                        outputLine = "Bueno aun no me han implementado el comando 'set key value' , espero lo hagan pronto disculpa";
+                        outputLine = set(comando[1],comando[2]);
                         out.println(outputLine);
                         break;
                     case "del":
-                        outputLine = "Bueno aun no me han implementado el comando 'del key' , espero lo hagan pronto disculpa";
+                        outputLine = del(comando[1]);
                         out.println(outputLine);
                         break;
                     case "list":
                         ArrayList lista;
-                        lista = new ArrayList<String>(base.Base.keySet());
-                        outputLine = "";
-                        for(i=0; i< lista.size(); i++){
-                            claveMap=(String)lista.get(i);
-                            outputLine=outputLine + "\n"+ claveMap;
-                            
-                        }
+                        lista = list();
                         //System.out.println(outputLine);
                         out.println("lista"+" "+lista);
                         //out.println(outputLine);
@@ -97,5 +95,39 @@ public class ThreadServer extends Thread {
 
         } catch (IOException e) {
         }
+    }
+    private String get(String key){
+        Object value = base.Base.get(key);
+        if(value==null)
+            return key+" no existe";
+        else 
+            return (String)value;
+    }
+    private ArrayList list(){
+        ArrayList lista;
+        lista = new ArrayList<String>(base.Base.keySet());
+        return lista;
+    }
+    private String del(String key){
+        Object value = base.Base.get(key);
+        if(value==null)
+            return key+" no existe";
+        else{
+            base.Base.remove(key);
+            return key+" se eliminó de la lista";
+        }    
+    }
+    private String set(String key,String newValue){
+        Object value = base.Base.get(key);
+        if(value==null)
+            return key+" no existe";
+        else{
+            base.Base.put(key,newValue);
+            return "Se cambió el valor de "+key;
+        }  
+    }
+    private String put(String key,String value){
+        base.Base.put(key,value);
+        return "Se agregó el nuevo objeto: "+key+", a la lista";
     }
 }

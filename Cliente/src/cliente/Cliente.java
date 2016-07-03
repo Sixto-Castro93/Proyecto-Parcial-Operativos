@@ -93,14 +93,14 @@ public class Cliente extends Conexion {
                     return false;
                 }
             case "set":
-                if (comando.length == 3) {
+                if (comando.length >= 3) {
                     return true;
                 } else {
                     System.out.println("Error: El comando set recibe dos parámetros de entrada");
                     return false;
                 }
             case "put":
-                if (comando.length == 3) {
+                if (comando.length >= 3) {
                     return true;
                 } else {
                     System.out.println("Error: El comando put recibe dos parámetros de entrada");
