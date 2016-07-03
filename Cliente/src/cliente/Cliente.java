@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.*;
 import java.net.*;
+import java.util.Calendar;
 
 public class Cliente extends Conexion {
     String [] comandos ={"get","set","del","list","exit"};
@@ -23,12 +24,11 @@ public class Cliente extends Conexion {
             out = new PrintWriter(cs.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
             //Flujo de datos hacia el servidor
-
             //Se enviarán dos mensajes
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String fromServer;
             String fromUser;
-            while ((fromServer = in.readLine()) != null) {
+            while ((fromServer = in.readLine()) != null) { 
                 System.out.println("Server: " + fromServer);
                 if (fromServer.equals("Bye.")) {
                     break;
@@ -57,6 +57,7 @@ public class Cliente extends Conexion {
                 cs.close();//Fin de la conexión
             }
             
+
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
