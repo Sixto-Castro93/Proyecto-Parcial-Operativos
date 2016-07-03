@@ -16,10 +16,13 @@ import java.io.*;
 public class ThreadServer extends Thread {
 
     private Socket socket = null;
+    
+    private BaseNoSql base = null;
 
-    public ThreadServer(Socket socket) {
+    public ThreadServer(Socket socket,BaseNoSql base) {
         super("ThreadServer");
         this.socket = socket;
+        this.base = base;
     }
 
     @Override

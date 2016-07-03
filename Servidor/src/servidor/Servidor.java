@@ -21,7 +21,7 @@ public class Servidor extends Conexion //Se hereda de conexión para hacer uso d
             while (true) {
                 Socket incoming = ss.accept();
 
-                Thread hilo = new ThreadServer(incoming);
+                Thread hilo = new ThreadServer(incoming,Base);
                 hilo.start();
             }
 
