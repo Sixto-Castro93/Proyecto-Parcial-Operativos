@@ -33,7 +33,25 @@ public class Cliente extends Conexion {
             String fromServer;
             String fromUser;
             while ((fromServer = in.readLine()) != null) {
-                
+                if(fromServer.startsWith("lista")){
+                    String [] lista;
+                    String last, outputLine;
+                    String arreglo;
+                    arreglo= fromServer.substring(6);
+                    arreglo = arreglo.replace("[", " ");
+                    arreglo = arreglo.replace("]", " ");
+                    lista = arreglo.split(",");
+                    //last = in.readLine().split("[")[arreglo-1];
+                    outputLine = "";
+                    for(int i=0; i< lista.length; i++){
+                        outputLine=outputLine + "\n"+ lista[i];
+
+                    }
+                    //System.out.println(arreglo);
+                    //System.out.println(outputLine);
+                    fromServer=outputLine;
+                    
+                }
                 
                 System.out.println("Server: " + fromServer);
                 if (fromServer.equals("Bye.")) {
