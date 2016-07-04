@@ -38,8 +38,10 @@ public class ThreadServer extends Thread {
             String claveMap;
             out.println("Te estoy atendiendo en hora buena , dime tu petición");
             while ((inputLine = in.readLine()) != null) {
-
-                String[] comando = inputLine.split("\\s");
+                inputLine=inputLine.substring(1,inputLine.length()-1);
+                System.out.println(inputLine);
+                String[] comando = inputLine.split(", ");
+                System.out.println(Arrays.toString(comando));
                 String cmd = comando[0].toLowerCase();
                 switch (cmd) {
                     case "get":
