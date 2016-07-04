@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 public class Cliente extends Conexion {
+                
 
     String[] comandos = {"get", "set", "del", "list", "exit"};
 
@@ -25,6 +26,7 @@ public class Cliente extends Conexion {
 
     public void startClient() //Método para iniciar el cliente
     {
+        
         try {
             out = new PrintWriter(cs.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
