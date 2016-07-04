@@ -59,7 +59,7 @@ public class Cliente extends Conexion {
 
                 boolean validez = true;
                 do {
-                    System.out.print("Client: ");
+                  //  System.out.print("Client: ");
                     fromUser = stdIn.readLine();
                     if (fromUser != null) {
                         String[] comando = fromUser.split(" ");

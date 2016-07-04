@@ -1,0 +1,6 @@
+list
+get 456789
+list
+help
+set 45677 "holaaaaaa"
+exit
