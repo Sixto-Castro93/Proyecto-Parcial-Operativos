@@ -7,17 +7,10 @@ package servidor;
 
 import java.net.*;
 import java.io.*;
-<<<<<<< HEAD
 import java.util.Iterator;
-=======
 import java.util.ArrayList;
 import java.util.Arrays;
->>>>>>> origin/master
 
-/**
- *
- * @author emele_000
- */
 public class ThreadServer extends Thread {
 
     private Socket socket = null;
@@ -45,67 +38,23 @@ public class ThreadServer extends Thread {
             String claveMap;
             out.println("Te estoy atendiendo en hora buena , dime tu petición");
             while ((inputLine = in.readLine()) != null) {
-<<<<<<< HEAD
+
                 String[] comando = inputLine.split("\\s");
                 String cmd = comando[0].toLowerCase();
                 switch (cmd) {
                     case "get":
                         String clave = comando[1];
-                        outputLine = (String) base.Base.get(clave);
-                        if (outputLine != null) {
-                           outputLine="Key:" + outputLine;
-                        } else {
-                            outputLine = "Key=";
-                        }
-=======
-                System.out.println(inputLine);
-                inputLine = inputLine.substring(1, inputLine.length()-1);
-                 String[] comando=inputLine.split(", ");
-                 System.out.println(Arrays.toString(comando));
-                      String cmd = comando[0].toLowerCase();
-                switch (cmd) {
-                    case "get":
-                        String clave = comando[1];
-                        outputLine=get(clave);
-                        //outputLine = "Bueno aun no me han implementado el comando 'get key' , espero lo hagan pronto disculpa";
->>>>>>> origin/master
+                        outputLine = get(clave);
                         out.println(outputLine);
                         break;
                     case "put":
-                        outputLine = put(comando[1],comando[2]);
+                        outputLine = put(comando[1], comando[2]);
                         out.println(outputLine);
                         break;
                     case "set":
-<<<<<<< HEAD
-                        Object tem = base.Base.put(comando[1], comando[2]);
-                        if (tem != null) {
-                            outputLine = "EROR: Ha ocurido un error al insertar su registro";
-                        } else {
 
-                            outputLine = "Ok";
-                        }
-                        out.println(outputLine);
-                        break;
-                    case "del":
-                        Object tem2 = base.Base.remove(comando[1]);
-                        if (tem2 == null) {
-                            outputLine = "ERROR: Probablemente este key no exista ,consultelo con el comando list";
-                        } else {
+                        outputLine = set(comando[1], comando[2]);
 
-                            outputLine = "Registro eliminado con clave: "+comando[1];
-                        }
-                        out.println(outputLine);
-                        break;
-                    case "list":
-                        outputLine="Lista de claves: ;";
-                        Iterator it = base.Base.keySet().iterator();
-                        while (it.hasNext()) {
-                            String key = (String)it.next();
-                            outputLine=outputLine+"        Clave: " + key +" ;";
-                        }
-                        out.println(outputLine);
-=======
-                        outputLine = set(comando[1],comando[2]);
                         out.println(outputLine);
                         break;
                     case "del":
@@ -116,9 +65,8 @@ public class ThreadServer extends Thread {
                         ArrayList lista;
                         lista = list();
                         //System.out.println(outputLine);
-                        out.println("lista"+" "+lista);
+                        out.println("lista" + " " + lista);
                         //out.println(outputLine);
->>>>>>> origin/master
                         break;
                     default:
                         outputLine = "ERROR: Comando no válido, puede ver los comandos disponibles con el comando 'help'";
@@ -143,38 +91,44 @@ public class ThreadServer extends Thread {
         } catch (IOException e) {
         }
     }
-    private String get(String key){
+
+    private String get(String key) {
         Object value = base.Base.get(key);
-        if(value==null)
-            return key+" no existe";
-        else 
-            return (String)value;
+        if (value == null) {
+            return "Key:";
+        } else {
+            return "Key:" + (String) value;
+        }
     }
-    private ArrayList list(){
+
+    private ArrayList list() {
         ArrayList lista;
         lista = new ArrayList<String>(base.Base.keySet());
         return lista;
     }
-    private String del(String key){
+
+    private String del(String key) {
         Object value = base.Base.get(key);
-        if(value==null)
-            return key+" no existe";
-        else{
+        if (value == null) {
+            return "ERROR: Este key no existe ,consultelo con el comando list";
+        } else {
             base.Base.remove(key);
-            return key+" se eliminó de la lista";
-        }    
+            return "Registro eliminado con clave: " + key;
+        }
     }
-    private String set(String key,String newValue){
+
+    private String set(String key, String newValue) {
         Object value = base.Base.get(key);
-        if(value==null)
-            return key+" no existe";
-        else{
-            base.Base.put(key,newValue);
-            return "Se cambió el valor de "+key;
-        }  
+        if (value == null) {
+            return "ERROR:" + key + " no existe";
+        } else {
+            base.Base.put(key, newValue);
+            return "Se cambió el valor de " + key;
+        }
     }
-    private String put(String key,String value){
-        base.Base.put(key,value);
-        return "Se agregó el nuevo objeto: "+key+", a la lista";
+
+    private String put(String key, String value) {
+        base.Base.put(key, value);
+        return "Se agregó el nuevo objeto: " + key + ", a la lista";
     }
 }
