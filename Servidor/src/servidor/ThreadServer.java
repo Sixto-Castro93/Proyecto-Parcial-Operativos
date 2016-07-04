@@ -43,7 +43,7 @@ public class ThreadServer extends Thread {
             while ((inputLine = in.readLine()) != null) {
                 System.out.println(inputLine);
                 inputLine = inputLine.substring(1, inputLine.length()-1);
-                 String[] comando=inputLine.split(",");
+                 String[] comando=inputLine.split(", ");
                  System.out.println(Arrays.toString(comando));
                       String cmd = comando[0].toLowerCase();
                 switch (cmd) {

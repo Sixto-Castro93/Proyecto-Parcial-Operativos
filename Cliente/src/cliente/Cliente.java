@@ -100,7 +100,7 @@ public class Cliente extends Conexion {
                         return true;
                     }
                     else{
-                        System.out.println("Error: El comando set recibe dos parámetros de entrada");
+                        System.out.println("Error: El comando set no cumple con la estructura: set <key> \"<value>\"");
                         return false;
                     }
                 } else {
@@ -114,7 +114,7 @@ public class Cliente extends Conexion {
                         return true;
                     }
                     else{
-                        System.out.println("Error: El comando set recibe dos parámetros de entrada");
+                        System.out.println("Error: El comando put no cumple con la estructura: put <key> \"<value>\"");
                         return false;
                     }
                 } else {
@@ -191,7 +191,7 @@ public class Cliente extends Conexion {
             }
         }
         else return null;
-        
+        System.out.println(value);
         return new String[]{cmdFinal.get(0),cmdFinal.get(1),value};
     }
 }
