@@ -7,9 +7,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Set;
 
 public class Cliente extends Conexion {
+                
 
     String[] comandos = {"get", "set", "del", "list", "exit"};
 
@@ -22,6 +26,7 @@ public class Cliente extends Conexion {
 
     public void startClient() //Método para iniciar el cliente
     {
+        
         try {
             out = new PrintWriter(cs.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
@@ -31,6 +36,34 @@ public class Cliente extends Conexion {
             String fromServer;
             String fromUser = "";
             while ((fromServer = in.readLine()) != null) {
+<<<<<<< 2b2d6b2954e59b9b0cfe47b5ee91868334f0c9ae
+                if(fromServer.startsWith("lista")){
+                    String [] lista;
+                    String last, outputLine;
+                    String arreglo;
+                    arreglo= fromServer.substring(6);
+                    arreglo = arreglo.replace("[", " ");
+                    arreglo = arreglo.replace("]", " ");
+                    lista = arreglo.split(",");
+                    //last = in.readLine().split("[")[arreglo-1];
+                    outputLine = "";
+                    for(int i=0; i< lista.length; i++){
+                        outputLine=outputLine + "\n"+ lista[i];
+
+                    }
+                    //System.out.println(arreglo);
+                    //System.out.println(outputLine);
+                    fromServer=outputLine;
+                    
+                }
+                
+                System.out.println("Server: " + fromServer);
+                if (fromServer.equals("Bye.")) {
+                    break;
+                }
+                
+                
+=======
                 if (fromUser.toLowerCase().equals("list")) {
                     fromServer = fromServer.replace(" ;", "\n");
                     System.out.println("Server: " + fromServer);
@@ -38,16 +71,24 @@ public class Cliente extends Conexion {
                     System.out.println("Server: " + fromServer);
                 }
 
+>>>>>>> Implementación de los comandos Soportados por el servidor y clinete
                 boolean validez = true;
                 do {
                     System.out.print("Client: ");
                     fromUser = stdIn.readLine();
                     if (fromUser != null) {
+<<<<<<< 2b2d6b2954e59b9b0cfe47b5ee91868334f0c9ae
+                        String[] comando = fromUser.split("\\s+");
+                        validez = validarComandos(comando,fromUser);
+                        if (validez) {
+                            out.println(Arrays.toString(comando));
+=======
                         String[] comando = fromUser.split(" ");
                         validez = validarComandos(comando);
                         if (validez) {
                             if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help"))
                             out.println(fromUser);
+>>>>>>> Implementación de los comandos Soportados por el servidor y clinete
                         }
                     }
                 } while ((!"help".equals(fromUser)) && (!"exit".equals(fromUser) && !validez));
@@ -64,7 +105,7 @@ public class Cliente extends Conexion {
 
     }
 
-    private Boolean validarComandos(String[] comando) {
+    private Boolean validarComandos(String[] comando,String s) {
         String cmd = comando[0].toLowerCase();
         switch (cmd) {
             case "get":
@@ -75,12 +116,36 @@ public class Cliente extends Conexion {
                     return false;
                 }
             case "set":
-                if (comando.length == 3) {
-                    return true;
+                if (comando.length >= 3) {
+                    comando = extraerDeComando(s);
+                    if(comando!=null){
+                        return true;
+                    }
+                    else{
+                        System.out.println("Error: El comando set no cumple con la estructura: set <key> \"<value>\"");
+                        return false;
+                    }
                 } else {
                     System.out.println("Error: El comando set recibe dos parámetros de entrada");
                     return false;
                 }
+<<<<<<< 2b2d6b2954e59b9b0cfe47b5ee91868334f0c9ae
+            case "put":
+                if (comando.length >= 3) {
+                    comando = extraerDeComando(s);
+                    if(comando!=null){
+                        return true;
+                    }
+                    else{
+                        System.out.println("Error: El comando put no cumple con la estructura: put <key> \"<value>\"");
+                        return false;
+                    }
+                } else {
+                    System.out.println("Error: El comando put recibe dos parámetros de entrada");
+                    return false;
+                }
+=======
+>>>>>>> Implementación de los comandos Soportados por el servidor y clinete
             case "del":
                 if (comando.length == 2) {
                     return true;
@@ -123,5 +188,35 @@ public class Cliente extends Conexion {
                 System.out.println("Error: El comando " + comando[0] + " no existe");
                 return false;
         }
+    }
+    private static String[] extraerDeComando(String s){
+        ArrayList<String> cmdFinal = new ArrayList<>();
+        String[] comando = s.split("\\s+");
+        String value=new String();
+        if(comando.length>=3){
+            cmdFinal.add(comando[0]);
+            cmdFinal.add(comando[1]);
+            int cont=0;
+            int y=0;
+            while(cont<2){
+                char c = s.charAt(y);
+                if(c==' ')cont++;
+                while(c==' '){
+                    y++;
+                    c=s.charAt(y);
+                }
+                if(c!=' ')y++;
+            }
+            if(s.charAt(y)!='\"' && s.charAt(s.length()-1)!='\"')
+                return null;
+            else{
+                for(;y<s.length()-1;y++){
+                    value += s.charAt(y);
+                }
+            }
+        }
+        else return null;
+        System.out.println(value);
+        return new String[]{cmdFinal.get(0),cmdFinal.get(1),value};
     }
 }
