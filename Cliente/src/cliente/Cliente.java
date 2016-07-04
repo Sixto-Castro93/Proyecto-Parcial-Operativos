@@ -60,7 +60,18 @@ public class Cliente extends Conexion {
 
                 boolean validez = true;
                 do {
+                    try {
+                       new Socket(Conexion.HOST, Conexion.PUERTO).close();
+                       verificaConexion = true;
+                    } catch(Exception e) {
+                        verificaConexion = false;
+                    }
+                    if(verificaConexion==false){
+                        cs.close();
+                        System.exit(0);
+                        break;
                     
+                    }
                     fromUser = stdIn.readLine();
                     if (fromUser != null) {
                         String[] comando =validarComandos(fromUser);
