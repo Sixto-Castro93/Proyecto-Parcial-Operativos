@@ -34,8 +34,11 @@ public class ThreadProducer extends Thread {
     @Override
     public void run() {
         while (true) {
-            if(Servidor.validaNumServer==true)
+            if(Servidor.validaNumServer==true){
+                System.exit(0); 
                 break;
+            }
+                
             
             Socket incoming;
             try {

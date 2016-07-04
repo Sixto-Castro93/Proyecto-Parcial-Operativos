@@ -22,6 +22,7 @@ public class Cliente extends Conexion {
 
     PrintWriter out = null;
     BufferedReader in = null;
+    boolean verificaConexion = false;
 
     public void startClient() //Método para iniciar el cliente
     {
@@ -59,7 +60,7 @@ public class Cliente extends Conexion {
 
                 boolean validez = true;
                 do {
-                  //  System.out.print("Client: ");
+                    
                     fromUser = stdIn.readLine();
                     if (fromUser != null) {
                         String[] comando =validarComandos(fromUser);
@@ -68,6 +69,7 @@ public class Cliente extends Conexion {
                             if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help")) {
                                 System.out.println(Arrays.toString(comando));
                                 out.println(Arrays.toString(comando));
+                                
                             }
                             if (fromUser.toLowerCase().equals("help")) {
                                 validez = false;
@@ -166,7 +168,7 @@ public class Cliente extends Conexion {
                     return null;
                 }
             default:
-                System.out.println("Error: El comando " + comando[0] + " no existe");
+                System.out.println("Error: El comando " + comando[0] + " no existe. Consulta los comandos disponibles con el comando 'help'");
                 return null;
         }
     }

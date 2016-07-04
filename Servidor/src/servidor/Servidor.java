@@ -13,7 +13,7 @@ public class Servidor extends Conexion //Se hereda de conexión para hacer uso d
   public static boolean validaNumServer = false;
   private static ContenedorPeticiones contenedor;
   private static BaseNoSql Base=new BaseNoSql();
-  
+  public static boolean verificaConexion = false;
     public Servidor() throws IOException {
         super("servidor");
     } //Se usa el constructor para servidor de Conexion

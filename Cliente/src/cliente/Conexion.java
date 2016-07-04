@@ -7,8 +7,8 @@ import java.net.Socket;
 
 public class Conexion
 {
-    private final int PUERTO = 1234; //Puerto para la conexión
-    private final String HOST = "localhost"; //Host para la conexión
+    public final static int PUERTO = 1234; //Puerto para la conexión
+    public final static String HOST = "localhost"; //Host para la conexión
     protected String mensajeServidor; //Mensajes entrantes (recibidos) en el servidor
     protected ServerSocket ss; //Socket del servidor
     protected Socket cs; //Socket del cliente
@@ -26,7 +26,7 @@ public class Conexion
             try {
                   cs = new Socket(HOST, PUERTO); //Socket para el cliente en localhost en puerto 1234
             } catch (Exception e) {
-                System.out.println("Este servidor no esta disponible por el momento, porfavor intenta mas tarde");
+                System.out.println("Este servidor no esta disponible por el momento, por favor intenta mas tarde");
             }
           
         }

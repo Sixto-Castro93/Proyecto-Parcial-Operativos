@@ -36,7 +36,7 @@ public class ThreadServer extends Thread {
             String inputLine, outputLine;
             int i = 0;
             String claveMap;
-            out.println("Te estoy atendiendo en hora buena , dime tu petición");
+            out.println("Te estoy atendiendo en hora buena, dime tu petición. Si desea consulte los comandos disponibles con 'help'");
             while ((inputLine = in.readLine()) != null) {
                 inputLine=inputLine.substring(1,inputLine.length()-1);
                 System.out.println(inputLine);
