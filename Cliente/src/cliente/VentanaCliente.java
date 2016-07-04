@@ -91,7 +91,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         String text = jTextField1.getText();
-        jTextArea1.removeAll();
+       
         jTextArea1.append(text);
         jTextArea1.setCaretPosition(jTextArea1.getDocument().getLength());
         jTextField1.selectAll();
@@ -101,7 +101,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -132,6 +132,10 @@ public class VentanaCliente extends javax.swing.JFrame {
                 
             }
         });
+        
+        
+        Cliente cli = new Cliente();
+        cli.startClient();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
