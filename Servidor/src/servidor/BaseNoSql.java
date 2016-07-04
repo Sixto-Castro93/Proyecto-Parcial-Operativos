@@ -27,9 +27,13 @@ public class BaseNoSql {
     }
 
     public void iniciarBase() {
-        Base.put("1", "1 elemento");
+        /*Base.put("1", "1 elemento");
         Base.put("2", "2 elemento");
         Base.put("3", "3 elemento");
-        Base.put("4", "4 elemento");
+        Base.put("4", "4 elemento");*/
+        Base.put("0991216662", "Nombre: Sixto Castro Redroban  Edad: 22 anios  Nacionalidad: Ecuatoriano");
+        Base.put("0987228938", "Nombre: Marlon Espinoza Pacheco  Edad: 22 anios  Nacionalidad: Ecuatoriano");
+        Base.put("0988199820", "Nombre: Kevin Zambrano Cortez  Edad: 22 anios  Nacionalidad: Ecuatoriano");
+        Base.put("0981423688", "Nombre: Jordy Vasquez Cepeda  Edad: 22 anios  Nacionalidad: Ecuatoriano");
     }
 }

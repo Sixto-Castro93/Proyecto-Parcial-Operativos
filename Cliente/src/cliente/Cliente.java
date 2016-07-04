@@ -36,7 +36,10 @@ public class Cliente extends Conexion {
             String fromServer;
             String fromUser = "";
             while ((fromServer = in.readLine()) != null) {
+<<<<<<< HEAD
 <<<<<<< 2b2d6b2954e59b9b0cfe47b5ee91868334f0c9ae
+=======
+>>>>>>> origin/master
                 if(fromServer.startsWith("lista")){
                     String [] lista;
                     String last, outputLine;
@@ -63,6 +66,7 @@ public class Cliente extends Conexion {
                 }
                 
                 
+<<<<<<< HEAD
 =======
                 if (fromUser.toLowerCase().equals("list")) {
                     fromServer = fromServer.replace(" ;", "\n");
@@ -72,6 +76,8 @@ public class Cliente extends Conexion {
                 }
 
 >>>>>>> Implementación de los comandos Soportados por el servidor y clinete
+=======
+>>>>>>> origin/master
                 boolean validez = true;
                 do {
                     System.out.print("Client: ");
@@ -80,6 +86,7 @@ public class Cliente extends Conexion {
 <<<<<<< 2b2d6b2954e59b9b0cfe47b5ee91868334f0c9ae
                         String[] comando = fromUser.split("\\s+");
                         validez = validarComandos(comando,fromUser);
+<<<<<<< HEAD
                         if (validez) {
                             out.println(Arrays.toString(comando));
 =======
@@ -89,6 +96,10 @@ public class Cliente extends Conexion {
                             if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help"))
                             out.println(fromUser);
 >>>>>>> Implementación de los comandos Soportados por el servidor y clinete
+=======
+                        if (validez) {
+                            out.println(Arrays.toString(comando));
+>>>>>>> origin/master
                         }
                     }
                 } while ((!"help".equals(fromUser)) && (!"exit".equals(fromUser) && !validez));
