@@ -29,31 +29,25 @@ public class Cliente extends Conexion {
             //Se enviarán dos mensajes
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String fromServer;
-            String fromUser = "";
+            String fromUser;
             while ((fromServer = in.readLine()) != null) {
-                if (fromUser.toLowerCase().equals("list")) {
-                    fromServer = fromServer.replace(" ;", "\n");
-                    System.out.println("Server: " + fromServer);
-                } else {
-                    System.out.println("Server: " + fromServer);
+                System.out.println("Server: " + fromServer);
+                if (fromServer.equals("Bye.")) {
+                    break;
                 }
-
                 boolean validez = true;
                 do {
                     System.out.print("Client: ");
                     fromUser = stdIn.readLine();
                     if (fromUser != null) {
-                        String[] comando = fromUser.split(" ");
+                        String[] comando = fromUser.split("\\s+");
                         validez = validarComandos(comando);
                         if (validez) {
-                            if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help"))
                             out.println(fromUser);
                         }
                     }
-                } while ((!"help".equals(fromUser)) && (!"exit".equals(fromUser) && !validez));
-                if (fromUser.toLowerCase().equals("exit")) {
-                    break;
-                }
+                } while (!"exit".equals(fromUser) && !validez);
+
             }
             out.close();
             in.close();
@@ -79,6 +73,13 @@ public class Cliente extends Conexion {
                     return true;
                 } else {
                     System.out.println("Error: El comando set recibe dos parámetros de entrada");
+                    return false;
+                }
+            case "put":
+                if (comando.length == 3) {
+                    return true;
+                } else {
+                    System.out.println("Error: El comando put recibe dos parámetros de entrada");
                     return false;
                 }
             case "del":

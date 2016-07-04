@@ -7,7 +7,6 @@ package servidor;
 
 import java.net.*;
 import java.io.*;
-import java.util.Iterator;
 
 /**
  *
@@ -16,10 +15,10 @@ import java.util.Iterator;
 public class ThreadServer extends Thread {
 
     private Socket socket = null;
-
+    
     private BaseNoSql base = null;
 
-    public ThreadServer(Socket socket, BaseNoSql base) {
+    public ThreadServer(Socket socket,BaseNoSql base) {
         super("ThreadServer");
         this.socket = socket;
         this.base = base;
@@ -39,50 +38,34 @@ public class ThreadServer extends Thread {
             int i = 0;
             out.println("Te estoy atendiendo en hora buena , dime tu petición");
             while ((inputLine = in.readLine()) != null) {
-                String[] comando = inputLine.split("\\s");
-                String cmd = comando[0].toLowerCase();
+                 String[] comando=inputLine.split("\\s+");
+                      String cmd = comando[0].toLowerCase();
                 switch (cmd) {
                     case "get":
-                        String clave = comando[1];
-                        outputLine = (String) base.Base.get(clave);
-                        if (outputLine != null) {
-                           outputLine="Key:" + outputLine;
-                        } else {
-                            outputLine = "Key=";
-                        }
+                             String clave = comando[1];
+                         outputLine=(String) base.Base.get(clave);
+                        //outputLine = "Bueno aun no me han implementado el comando 'get key' , espero lo hagan pronto disculpa";
                         out.println(outputLine);
                         break;
                     case "set":
-                        Object tem = base.Base.put(comando[1], comando[2]);
-                        if (tem != null) {
-                            outputLine = "EROR: Ha ocurido un error al insertar su registro";
-                        } else {
-
-                            outputLine = "Ok";
-                        }
+                        outputLine = "Bueno aun no me han implementado el comando 'set key value' , espero lo hagan pronto disculpa";
                         out.println(outputLine);
                         break;
                     case "del":
-                        Object tem2 = base.Base.remove(comando[1]);
-                        if (tem2 == null) {
-                            outputLine = "ERROR: Probablemente este key no exista ,consultelo con el comando list";
-                        } else {
-
-                            outputLine = "Registro eliminado con clave: "+comando[1];
-                        }
+                        outputLine = "Bueno aun no me han implementado el comando 'del key' , espero lo hagan pronto disculpa";
                         out.println(outputLine);
                         break;
                     case "list":
-                        outputLine="Lista de claves: ;";
-                        Iterator it = base.Base.keySet().iterator();
-                        while (it.hasNext()) {
-                            String key = (String)it.next();
-                            outputLine=outputLine+"        Clave: " + key +" ;";
-                        }
+                        outputLine = "Bueno aun no me han implementado el comando 'list' , espero lo hagan pronto disculpa";
                         out.println(outputLine);
                         break;
+                    case "exit":
+                        outputLine = "Bye.";
+                        out.println(outputLine);
+                        break;
+
                     default:
-                        outputLine = "ERROR: Comando no válido, puede ver los comandos disponibles con el comando 'help'";
+                        outputLine = "Comando no válido, puede ver los comandos disponibles con el comando 'help'";
                         out.println(outputLine);
                         break;
 
