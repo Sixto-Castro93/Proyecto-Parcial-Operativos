@@ -5,6 +5,10 @@
  */
 package servidor;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,6 +40,34 @@ public class BaseNoSql {
         Base.put("0987228938", "Nombre: Marlon Espinoza Pacheco  Edad: 22 anios  Nacionalidad: Ecuatoriano");
         Base.put("0988199820", "Nombre: Kevin Zambrano Cortez  Edad: 22 anios  Nacionalidad: Ecuatoriano");
         Base.put("0981423688", "Nombre: Jordy Vasquez Cepeda  Edad: 22 anios  Nacionalidad: Ecuatoriano");
+    }
+    
+    public void iniciarBase2() {
+        try
+        {
+          BufferedReader in = new BufferedReader( new FileReader(".\\src\\servidor\\prueba.txt"));
+              
+            String line;
+            String[] values;
+ 
+            while(((line = in.readLine()) != null))
+            {
+                values = line.split("\\t");
+                String clave = values[0];
+                String valor = values[1];
+                //System.out.println(clave + " "+ valor);
+                Base.put(clave, valor);
+            }
+ 
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+      }
     }
 
     public synchronized String getvalor(String key) {

@@ -68,6 +68,7 @@ public class Cliente extends Conexion {
                     }
                     if(verificaConexion==false){
                         cs.close();
+                        System.out.println("El servidor ha dejado de ejecutarse");
                         System.exit(0);
                         break;
                     

@@ -23,7 +23,8 @@ public class Servidor extends Conexion //Se hereda de conexión para hacer uso d
         try {
             System.out.println("Esperando..."); //Esperando conexión
             Base=new BaseNoSql();
-            Base.iniciarBase();
+            Base.iniciarBase2();
+            //Base.iniciarBase();
             contenedor = new ContenedorPeticiones();
             ExecutorService producers = Executors.newFixedThreadPool(5);
           for (int i = 0; i < 5; i++) {
