@@ -34,8 +34,12 @@ public class Cliente extends Conexion {
             //Se enviarán dos mensajes
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String fromServer;
-            String fromUser;
+            String fromUser = "";
             while ((fromServer = in.readLine()) != null) {
+<<<<<<< HEAD
+<<<<<<< 2b2d6b2954e59b9b0cfe47b5ee91868334f0c9ae
+=======
+>>>>>>> origin/master
                 if(fromServer.startsWith("lista")){
                     String [] lista;
                     String last, outputLine;
@@ -62,19 +66,46 @@ public class Cliente extends Conexion {
                 }
                 
                 
+<<<<<<< HEAD
+=======
+                if (fromUser.toLowerCase().equals("list")) {
+                    fromServer = fromServer.replace(" ;", "\n");
+                    System.out.println("Server: " + fromServer);
+                } else {
+                    System.out.println("Server: " + fromServer);
+                }
+
+>>>>>>> Implementación de los comandos Soportados por el servidor y clinete
+=======
+>>>>>>> origin/master
                 boolean validez = true;
                 do {
                     System.out.print("Client: ");
                     fromUser = stdIn.readLine();
                     if (fromUser != null) {
+<<<<<<< 2b2d6b2954e59b9b0cfe47b5ee91868334f0c9ae
                         String[] comando = fromUser.split("\\s+");
                         validez = validarComandos(comando,fromUser);
+<<<<<<< HEAD
                         if (validez) {
                             out.println(Arrays.toString(comando));
+=======
+                        String[] comando = fromUser.split(" ");
+                        validez = validarComandos(comando);
+                        if (validez) {
+                            if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help"))
+                            out.println(fromUser);
+>>>>>>> Implementación de los comandos Soportados por el servidor y clinete
+=======
+                        if (validez) {
+                            out.println(Arrays.toString(comando));
+>>>>>>> origin/master
                         }
                     }
-                } while (!"exit".equals(fromUser) && !validez);
-
+                } while ((!"help".equals(fromUser)) && (!"exit".equals(fromUser) && !validez));
+                if (fromUser.toLowerCase().equals("exit")) {
+                    break;
+                }
             }
             out.close();
             in.close();
@@ -109,6 +140,7 @@ public class Cliente extends Conexion {
                     System.out.println("Error: El comando set recibe dos parámetros de entrada");
                     return false;
                 }
+<<<<<<< 2b2d6b2954e59b9b0cfe47b5ee91868334f0c9ae
             case "put":
                 if (comando.length >= 3) {
                     comando = extraerDeComando(s);
@@ -123,6 +155,8 @@ public class Cliente extends Conexion {
                     System.out.println("Error: El comando put recibe dos parámetros de entrada");
                     return false;
                 }
+=======
+>>>>>>> Implementación de los comandos Soportados por el servidor y clinete
             case "del":
                 if (comando.length == 2) {
                     return true;
