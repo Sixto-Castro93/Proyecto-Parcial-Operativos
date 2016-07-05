@@ -3,4 +3,6 @@ get 456789
 list
 help
 set 45677 "holaaaaaa"
+put 67363 "erjfoilfmnr"
+get 67363
 exit

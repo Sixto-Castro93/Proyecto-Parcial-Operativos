@@ -26,7 +26,7 @@ public class ThreadServer extends Thread {
     @Override
     public void run() {
         try {
-            System.out.println("Cliente en línea");
+            System.out.println("Cliente en linea");
 
             //Se obtiene el flujo de salida del cliente para enviarle mensajes
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -36,12 +36,12 @@ public class ThreadServer extends Thread {
             String inputLine, outputLine;
             int i = 0;
             String claveMap;
-            out.println("Te estoy atendiendo en hora buena , dime tu petición");
+            out.println("Te estoy atendiendo en hora buena , dime tu peticion");
             while ((inputLine = in.readLine()) != null) {
                 inputLine=inputLine.substring(1,inputLine.length()-1);
-                System.out.println(inputLine);
+             //   System.out.println(inputLine);
                 String[] comando = inputLine.split(", ");
-                System.out.println(Arrays.toString(comando));
+             //   System.out.println(Arrays.toString(comando));
                 String cmd = comando[0].toLowerCase();
                 switch (cmd) {
                     case "get":
@@ -71,7 +71,7 @@ public class ThreadServer extends Thread {
                         //out.println(outputLine);
                         break;
                     default:
-                        outputLine = "ERROR: Comando no válido, puede ver los comandos disponibles con el comando 'help'";
+                        outputLine = "ERROR: Comando no valido, puede ver los comandos disponibles con el comando 'help'";
                         out.println(outputLine);
                         break;
 

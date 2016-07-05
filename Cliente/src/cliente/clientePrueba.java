@@ -6,6 +6,7 @@
 package cliente;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +19,7 @@ public class clientePrueba {
     public static void main(String[] args) throws IOException
     {
     int i=0;
-    while(i<6000){
+    while(i<6){
         new Thread() { 
             public void run() {
                 clientePrueba cp = new clientePrueba();
@@ -40,11 +41,12 @@ public class clientePrueba {
     
     public void llamadas() throws IOException{
         int i=0;
-        
+        ArrayList<String> comandos=new ArrayList<>();
+        comandos.add("[LIST]");
             Cliente cli = new Cliente(); 
         
             System.out.println("Iniciando cliente\n");
-            cli.startClient();
+            cli.startClient("[list]");
           
         
     }

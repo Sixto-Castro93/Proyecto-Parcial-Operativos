@@ -69,12 +69,12 @@ public class BaseNoSql {
             return "ERROR:" + key + " no existe";
         } else {
             this.Base.put(key, newValue);
-            return "Se cambió el valor de " + key;
+            return "Se cambio el valor de " + key;
         }
     }
 
     public synchronized String putvalor(String key, String value) {
         this.Base.put(key, value);
-        return "Se agregó el nuevo objeto: " + key + ", a la lista";
+        return "Se agrego el nuevo objeto: " + key + ", a la lista";
     }
 }
