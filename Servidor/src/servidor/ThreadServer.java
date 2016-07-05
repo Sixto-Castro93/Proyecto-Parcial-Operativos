@@ -26,7 +26,7 @@ public class ThreadServer extends Thread {
     @Override
     public void run() {
         try {
-            System.out.println("Cliente en línea");
+            System.out.println("Cliente en linea");
 
             //Se obtiene el flujo de salida del cliente para enviarle mensajes
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -36,42 +36,43 @@ public class ThreadServer extends Thread {
             String inputLine, outputLine;
             int i = 0;
             String claveMap;
-            out.println("Te estoy atendiendo en hora buena , dime tu petición");
+
+            out.println("Te estoy atendiendo en hora buena, dime tu petición. Si desea consulte los comandos disponibles con 'help'");
             while ((inputLine = in.readLine()) != null) {
                 inputLine=inputLine.substring(1,inputLine.length()-1);
-                System.out.println(inputLine);
+             //   System.out.println(inputLine);
                 String[] comando = inputLine.split(", ");
-                System.out.println(Arrays.toString(comando));
+             //   System.out.println(Arrays.toString(comando));
                 String cmd = comando[0].toLowerCase();
                 switch (cmd) {
                     case "get":
                         String clave = comando[1];
-                        outputLine = get(clave);
+                        outputLine = base.getvalor(clave);
                         out.println(outputLine);
                         break;
                     case "put":
-                        outputLine = put(comando[1], comando[2]);
+                        outputLine = base.putvalor(comando[1], comando[2]);
                         out.println(outputLine);
                         break;
                     case "set":
 
-                        outputLine = set(comando[1], comando[2]);
+                        outputLine = base.setvalor(comando[1], comando[2]);
 
                         out.println(outputLine);
                         break;
                     case "del":
-                        outputLine = del(comando[1]);
+                        outputLine = base.delvalor(comando[1]);
                         out.println(outputLine);
                         break;
                     case "list":
                         ArrayList lista;
-                        lista = list();
+                        lista = base.listvalor();
                         //System.out.println(outputLine);
                         out.println("lista" + " " + lista);
                         //out.println(outputLine);
                         break;
                     default:
-                        outputLine = "ERROR: Comando no válido, puede ver los comandos disponibles con el comando 'help'";
+                        outputLine = "ERROR: Comando no valido, puede ver los comandos disponibles con el comando 'help'";
                         out.println(outputLine);
                         break;
 
@@ -92,45 +93,5 @@ public class ThreadServer extends Thread {
 
         } catch (IOException e) {
         }
-    }
-
-    private String get(String key) {
-        Object value = base.Base.get(key);
-        if (value == null) {
-            return "Key:";
-        } else {
-            return "Key:" + (String) value;
-        }
-    }
-
-    private ArrayList list() {
-        ArrayList lista;
-        lista = new ArrayList<String>(base.Base.keySet());
-        return lista;
-    }
-
-    private String del(String key) {
-        Object value = base.Base.get(key);
-        if (value == null) {
-            return "ERROR: Este key no existe ,consultelo con el comando list";
-        } else {
-            base.Base.remove(key);
-            return "Registro eliminado con clave: " + key;
-        }
-    }
-
-    private String set(String key, String newValue) {
-        Object value = base.Base.get(key);
-        if (value == null) {
-            return "ERROR:" + key + " no existe";
-        } else {
-            base.Base.put(key, newValue);
-            return "Se cambió el valor de " + key;
-        }
-    }
-
-    private String put(String key, String value) {
-        base.Base.put(key, value);
-        return "Se agregó el nuevo objeto: " + key + ", a la lista";
     }
 }

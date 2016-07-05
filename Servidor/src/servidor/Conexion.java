@@ -28,8 +28,8 @@ public class Conexion
         if(tipo.equalsIgnoreCase("servidor"))
         {
               try {
-                   ss = new ServerSocket(PUERTO);//Se crea el socket para el servidor en puerto 1234
-            cs = new Socket(); //Socket para el cliente
+                ss = new ServerSocket(PUERTO);//Se crea el socket para el servidor en puerto 1234
+                cs = new Socket(); //Socket para el cliente
             } catch (Exception e) {
                 System.out.println("Este servidor ya esta disponible por el momento");
             }

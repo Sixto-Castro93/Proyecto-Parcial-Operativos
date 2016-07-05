@@ -1,0 +1,4 @@
+0991216662	Nombre: Sixto Castro Redroban  Edad: 22 anios  Nacionalidad: Ecuatoriano
+0987228938	Nombre: Marlon Espinoza Pacheco  Edad: 22 anios  Nacionalidad: Ecuatoriano
+0988199820	Nombre: Kevin Zambrano Cortez  Edad: 22 anios  Nacionalidad: Ecuatoriano
+0981423688	Nombre: Jordy Vasquez Cepeda  Edad: 22 anios  Nacionalidad: Ecuatoriano

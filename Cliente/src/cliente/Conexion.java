@@ -26,7 +26,7 @@ public class Conexion
             try {
                   cs = new Socket(HOST, PUERTO); //Socket para el cliente en localhost en puerto 1234
             } catch (Exception e) {
-                System.out.println("Este servidor no esta disponible por el momento, porfavor intenta mas tarde");
+                System.out.println("Este servidor no esta disponible por el momento, por favor intenta mas tarde");
             }
           
         }
