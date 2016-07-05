@@ -19,11 +19,11 @@ public class clientePrueba {
     public static void main(String[] args) throws IOException {
         int i = 0;
         ArrayList<String> comandos = new ArrayList<>();
-        comandos.add("put 0988199825 \"poiupoiu\"");
-        comandos.add("del 0988199825");
-        comandos.add("put 0988199825 \"poiupoiu\"");
-        comandos.add("put 0988199826 \"poiupoiu\"");
-        comandos.add("get 0988199825");
+//        comandos.add("put 0988199825 \"poiupoiu\"");
+//        comandos.add("del 0988199825");
+//        comandos.add("put 0988199825 \"poiupoiu\"");
+//        comandos.add("put 0988199826 \"poiupoiu\"");
+//        comandos.add("get 0988199825");
         
 //        comandos.add("list");
 //        comandos.add("list");
@@ -31,13 +31,16 @@ public class clientePrueba {
 //        comandos.add("list");
 //        comandos.add("list");
 
-        while(i<5) {
+        while(i<1) {
            
             new Thread() {
                 public void run() {
                     clientePrueba cp = new clientePrueba();
                     try {
-                        cp.llamadas(comandos.get(0));
+//                        cp.llamadas(comandos.get(0));
+                        cp.llamadas("put 0988199825 \"poiupoiu\"");
+//                        cp.llamadas("list");
+//                        cp.llamadas();
                     } catch (IOException ex) {
                         Logger.getLogger(clientePrueba.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -56,6 +59,8 @@ public class clientePrueba {
 
         System.out.println("Iniciando cliente\n");
         cli.startClient("["+ str + "]");
+//        cli.startClient("get 0988199820");
+//        cli.startClient("[list]");
 
     }
 

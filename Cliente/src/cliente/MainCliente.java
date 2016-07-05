@@ -10,7 +10,7 @@ public class MainCliente
     public static void main(String[] args) throws IOException
     {  
         Cliente cli = new Cliente(); 
-        System.out.println("Iniciando cliente\n");
+        System.out.println("Iniciando cliente\"asd\"\n");
         cli.startClient(); //Se inicia el cliente
     }
 }
