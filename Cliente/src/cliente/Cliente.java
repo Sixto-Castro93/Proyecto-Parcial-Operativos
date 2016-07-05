@@ -23,6 +23,7 @@ public class Cliente extends Conexion {
 
     PrintWriter out = null;
     BufferedReader in = null;
+    boolean verificaConexion = false;
 
     public void startClient(String comandos) //Método para iniciar el cliente
     {
@@ -67,6 +68,7 @@ public class Cliente extends Conexion {
                 System.out.println((char) 27 + "[31m" + "Server: " + fromServer);
                 boolean validez = true;
                 do {
+<<<<<<< HEAD
                     System.out.print((char) 27 + "[34m" + "Client: ");
                     if (!comandoscl.equals("")) {
                         out.println(comandoscl);
@@ -77,6 +79,22 @@ public class Cliente extends Conexion {
 
                     }
 
+=======
+                    try {
+                       new Socket(Conexion.HOST, Conexion.PUERTO).close();
+                       verificaConexion = true;
+                    } catch(Exception e) {
+                        verificaConexion = false;
+                    }
+                    if(verificaConexion==false){
+                        cs.close();
+                        System.out.println("El servidor ha dejado de ejecutarse");
+                        System.exit(0);
+                        break;
+                    
+                    }
+                    fromUser = stdIn.readLine();
+>>>>>>> origin/master
                     if (fromUser != null) {
                         String[] comando = validarComandos(fromUser);
                         if (comando != null) {
@@ -84,6 +102,7 @@ public class Cliente extends Conexion {
                             if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help")) {
                                 System.out.println(Arrays.toString(comando));
                                 out.println(Arrays.toString(comando));
+                                
                             }
                             if (fromUser.toLowerCase().equals("help")) {
                                 validez = false;
@@ -183,7 +202,11 @@ public class Cliente extends Conexion {
                     return null;
                 }
             default:
+<<<<<<< HEAD
                 System.out.println((char) 27 + "[34m" + "Error: El comando " + comando[0] + " no existe");
+=======
+                System.out.println("Error: El comando " + comando[0] + " no existe. Consulta los comandos disponibles con el comando 'help'");
+>>>>>>> origin/master
                 return null;
         }
     }
