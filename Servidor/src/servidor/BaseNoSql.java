@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -55,7 +57,7 @@ public class BaseNoSql {
                 values = line.split("\\t");
                 String clave = values[0];
                 String valor = values[1];
-                //System.out.println(clave + " "+ valor);
+                System.out.println(clave + " "+ valor);
                 Base.put(clave, valor);
             }
  
@@ -69,6 +71,57 @@ public class BaseNoSql {
             e.printStackTrace();
       }
     }
+    
+    
+    public void guardarArchivo(String nombreArchivo, String ruta) {
+        try
+        {
+          BufferedReader in = new BufferedReader( new FileReader(ruta));
+              
+            String line;
+            ArrayList<String> values = new ArrayList<String>();
+            //String[] values;
+            int i=0;
+            while(((line = in.readLine()) != null))
+            {
+                i++;
+                String valor = line;
+                Base.put(nombreArchivo+"."+i, line);
+                System.out.println(line);
+                /*System.out.println(valor);
+                values.add(valor);*/
+                //ThreadServer.salida.println(line);
+            }
+            //Base.put(nombreArchivo, values);
+ 
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+      }
+    }
+    
+    
+    public void leerArchivo(String nombreArchivo) {
+        
+            Iterator it = Base.entrySet().iterator();
+            while(it.hasNext()) {
+             Map.Entry mentry = (Map.Entry)it.next();
+             if(mentry.getKey().toString().startsWith(nombreArchivo)== true){
+                 System.out.print("key: "+ mentry.getKey() + " & Value: ");
+                 System.out.println(mentry.getValue());
+                 ThreadServer.salida.println(mentry.getValue());
+             }
+             
+             
+            }   
+            
+    }
+    
 
     public synchronized String getvalor(String key) {
         Object value = this.Base.get(key);
@@ -107,6 +160,12 @@ public class BaseNoSql {
 
     public synchronized String putvalor(String key, String value) {
         this.Base.put(key, value);
+        return "Se agregó el nuevo objeto: " + key + ", a la lista";
+    }
+    
+    public synchronized String putvalor2(String key, String value) {
+        this.Base.put(key, value);
+        guardarArchivo(key, value);
         return "Se agregó el nuevo objeto: " + key + ", a la lista";
     }
 }

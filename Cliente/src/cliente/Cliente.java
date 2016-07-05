@@ -23,6 +23,8 @@ public class Cliente extends Conexion {
     PrintWriter out = null;
     BufferedReader in = null;
     boolean verificaConexion = false;
+    int cont = 0;
+    boolean band =true;
 
     public void startClient() //Método para iniciar el cliente
     {
@@ -55,41 +57,62 @@ public class Cliente extends Conexion {
                     fromServer = outputLine;
 
                 }
-
-                System.out.println("Server: " + fromServer);
-
-                boolean validez = true;
-                do {
-                    try {
-                       new Socket(Conexion.HOST, Conexion.PUERTO).close();
-                       verificaConexion = true;
-                    } catch(Exception e) {
-                        verificaConexion = false;
-                    }
-                    if(verificaConexion==false){
-                        cs.close();
-                        System.out.println("El servidor ha dejado de ejecutarse");
-                        System.exit(0);
-                        break;
+                
+                band=true;
+                if (fromServer.startsWith("Linea")) {
+                    fromServer = fromServer.substring(6);
+                    if(cont==0){
+                        System.out.println("Server: " + fromServer);
+                        cont++;
+                    }else
+                        System.out.println(fromServer);
+                    band=false;
                     
-                    }
-                    fromUser = stdIn.readLine();
-                    if (fromUser != null) {
-                        String[] comando =validarComandos(fromUser);
-                        if (comando!=null) {
-                            validez=true;
-                            if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help")) {
-                                System.out.println(Arrays.toString(comando));
-                                out.println(Arrays.toString(comando));
-                                
-                            }
-                            if (fromUser.toLowerCase().equals("help")) {
+                }
+                else{
+                    System.out.println("Server: " + fromServer);
+                }
+                if(fromServer.startsWith("Fin")){
+                    band=true;
+                }
+                
+                
+                    
+                 
+                boolean validez = true;
+                if(band ==true){
+                    do {
+                        try {
+                           new Socket(Conexion.HOST, Conexion.PUERTO).close();
+                           verificaConexion = true;
+                        } catch(Exception e) {
+                            verificaConexion = false;
+                        }
+                        if(verificaConexion==false){
+                            cs.close();
+                            System.out.println("El servidor ha dejado de ejecutarse");
+                            System.exit(0);
+                            break;
+
+                        }
+                        fromUser = stdIn.readLine();
+                        if (fromUser != null) {
+                            String[] comando =validarComandos(fromUser);
+                            if (comando!=null) {
+                                validez=true;
+                                if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help")) {
+                                    System.out.println(Arrays.toString(comando));
+                                    out.println(Arrays.toString(comando));
+
+                                }
+                                if (fromUser.toLowerCase().equals("help")) {
+                                    validez = false;
+                                }
+                            }else
                                 validez = false;
-                            }
-                        }else
-                            validez = false;
-                    }
-                } while (!validez);
+                        }
+                    } while (!validez);
+                }
                 if (fromUser.toLowerCase().equals("exit")) {
                     break;
                 }
