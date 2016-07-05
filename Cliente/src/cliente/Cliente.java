@@ -92,7 +92,7 @@ public class Cliente extends Conexion {
                         break;
                     
                     }
-                    fromUser = stdIn.readLine();
+                    //fromUser = stdIn.readLine();
                     if (fromUser != null) {
                         String[] comando = validarComandos(fromUser);
                         if (comando != null) {
