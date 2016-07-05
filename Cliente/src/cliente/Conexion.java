@@ -7,9 +7,8 @@ import java.net.Socket;
 
 public class Conexion
 {
-    public final static int PUERTO = 1234; //Puerto para la conexión
-    public final static String HOST = "localhost"; //Host para la conexión
-    protected String mensajeServidor; //Mensajes entrantes (recibidos) en el servidor
+    public static int PUERTO = 1234; //Puerto para la conexión
+    public static String HOST = "localhost"; //Host para la conexiónprotected String mensajeServidor; //Mensajes entrantes (recibidos) en el servidor
     protected ServerSocket ss; //Socket del servidor
     protected Socket cs; //Socket del cliente
     protected DataOutputStream salidaServidor, salidaCliente; //Flujo de datos de salida

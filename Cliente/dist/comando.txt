@@ -1,6 +1,10 @@
 list
-get 456789
+put 12 "hola soy el nuevo"
+get 12
+del 12
 list
-help
-set 45677 "holaaaaaa"
+get 12
+put 12 hola resucite"
+get 12
+del 12
 exit

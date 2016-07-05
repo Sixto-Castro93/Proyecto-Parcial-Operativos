@@ -21,6 +21,6 @@ public class MainServidor
         Servidor serv = new Servidor(); //Se crea el servidor
         
         System.out.println("Iniciando servidor\n");
-        serv.startServer(); //Se inicia el servidor
+        serv.startServer(args[0]); //Se inicia el servidor
     }
 }
