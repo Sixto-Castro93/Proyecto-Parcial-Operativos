@@ -92,7 +92,7 @@ public class Cliente extends Conexion {
                         break;
                     
                     }
-                    fromUser = stdIn.readLine();
+                    //fromUser = stdIn.readLine();
                     if (fromUser != null) {
                         String[] comando = validarComandos(fromUser);
                         if (comando != null) {
@@ -200,6 +200,7 @@ public class Cliente extends Conexion {
                     return null;
                 }
             default:
+
                 System.out.println((char) 27 + "[34m" + "Error: El comando " + comando[0] + " no existe");
 
                 return null;
