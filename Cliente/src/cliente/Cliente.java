@@ -201,7 +201,7 @@ public class Cliente extends Conexion {
                     if (comando != null) {
                         return comando;
                     } else {
-                        System.out.println((char) 27 + "[34m" + "Error: El comando set no cumple con la estructura: set <key> \"<value>\"");
+                        System.out.println((char) 27 + "[34m" + "Error: El comando set no cumple con la estructura: set <key> <value>");
                         return null;
                     }
                 } else {
@@ -215,7 +215,7 @@ public class Cliente extends Conexion {
                     if (comando != null) {
                         return comando;
                     } else {
-                        System.out.println((char) 27 + "[34m" + "Error: El comando put no cumple con la estructura: put <key> \"<value>\"");
+                        System.out.println((char) 27 + "[34m" + "Error: El comando put no cumple con la estructura: put <key> <value>");
                         return null;
                     }
                 } else {
@@ -290,13 +290,11 @@ public class Cliente extends Conexion {
                     y++;
                 }
             }
-            if (s.charAt(y) != '\"' && s.charAt(s.length() - 1) != '\"') {
-                return null;
-            } else {
-                for (; y < s.length() - 1; y++) {
+            y--;
+                for (; y < s.length(); y++) {
                     value += s.charAt(y);
                 }
-            }
+            
         } else {
             return null;
         }
