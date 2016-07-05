@@ -68,7 +68,7 @@ public class Cliente extends Conexion {
                 System.out.println((char) 27 + "[31m" + "Server: " + fromServer);
                 boolean validez = true;
                 do {
-<<<<<<< HEAD
+
                     System.out.print((char) 27 + "[34m" + "Client: ");
                     if (!comandoscl.equals("")) {
                         out.println(comandoscl);
@@ -79,7 +79,6 @@ public class Cliente extends Conexion {
 
                     }
 
-=======
                     try {
                        new Socket(Conexion.HOST, Conexion.PUERTO).close();
                        verificaConexion = true;
@@ -94,7 +93,6 @@ public class Cliente extends Conexion {
                     
                     }
                     fromUser = stdIn.readLine();
->>>>>>> origin/master
                     if (fromUser != null) {
                         String[] comando = validarComandos(fromUser);
                         if (comando != null) {
@@ -202,11 +200,8 @@ public class Cliente extends Conexion {
                     return null;
                 }
             default:
-<<<<<<< HEAD
                 System.out.println((char) 27 + "[34m" + "Error: El comando " + comando[0] + " no existe");
-=======
-                System.out.println("Error: El comando " + comando[0] + " no existe. Consulta los comandos disponibles con el comando 'help'");
->>>>>>> origin/master
+
                 return null;
         }
     }
