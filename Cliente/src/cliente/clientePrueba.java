@@ -23,7 +23,7 @@ public class clientePrueba {
             public void run() {
                 clientePrueba cp = new clientePrueba();
                 try {
-                    cp.llamadas();
+                    cp.llamadas(args[0],args[1]);
                 } catch (IOException ex) {
                     Logger.getLogger(clientePrueba.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -38,13 +38,13 @@ public class clientePrueba {
     
     
     
-    public void llamadas() throws IOException{
+    public void llamadas(String args1,String args2) throws IOException{
         int i=0;
         
             Cliente cli = new Cliente(); 
         
             System.out.println("Iniciando cliente\n");
-            cli.startClient();
+            cli.startClient(args1,args2);
           
         
     }

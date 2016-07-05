@@ -18,8 +18,9 @@ public class Servidor extends Conexion //Se hereda de conexión para hacer uso d
         super("servidor");
     } //Se usa el constructor para servidor de Conexion
 
-    public void startServer()//Método para iniciar el servidor
+    public void startServer(String puerto)//Método para iniciar el servidor
     {
+        PUERTO = Integer.parseInt(puerto) ;
         try {
             System.out.println("Esperando..."); //Esperando conexión
             Base=new BaseNoSql();

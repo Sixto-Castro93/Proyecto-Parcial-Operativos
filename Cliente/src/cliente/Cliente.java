@@ -23,9 +23,10 @@ public class Cliente extends Conexion {
     PrintWriter out = null;
     BufferedReader in = null;
 
-    public void startClient() //Método para iniciar el cliente
+    public void startClient(String ip, String puerto) //Método para iniciar el cliente
     {
-
+        HOST = ip;
+        PUERTO = Integer.parseInt(puerto);
         try {
             out = new PrintWriter(cs.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
