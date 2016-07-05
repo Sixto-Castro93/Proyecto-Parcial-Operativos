@@ -135,7 +135,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         
         
         Cliente cli = new Cliente();
-        cli.startClient();
+        cli.startClient(args[0],args[1]);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

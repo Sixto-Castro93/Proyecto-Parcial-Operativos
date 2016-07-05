@@ -16,41 +16,54 @@ import java.util.logging.Logger;
  */
 public class clientePrueba {
     
-    public static void main(String[] args) throws IOException
-    {
-    int i=0;
-    while(i<6){
-        new Thread() { 
-            public void run() {
-                clientePrueba cp = new clientePrueba();
-                try {
-                    cp.llamadas();
-                } catch (IOException ex) {
-                    Logger.getLogger(clientePrueba.class.getName()).log(Level.SEVERE, null, ex);
+    public static void main(String[] args) throws IOException {
+        int i = 0;
+        ArrayList<String> comandos = new ArrayList<>();
+//        comandos.add("put 0988199825 \"poiupoiu\"");
+//        comandos.add("del 0988199825");
+//        comandos.add("put 0988199825 \"poiupoiu\"");
+//        comandos.add("put 0988199826 \"poiupoiu\"");
+//        comandos.add("get 0988199825");
+        
+//        comandos.add("list");
+//        comandos.add("list");
+//        comandos.add("list");
+//        comandos.add("list");
+//        comandos.add("list");
+
+        while(i<1) {
+           
+            new Thread() {
+                public void run() {
+                    clientePrueba cp = new clientePrueba();
+                    try {
+//                        cp.llamadas(comandos.get(0));
+                        cp.llamadas("put 0988199825 \"poiupoiu\"",args[0],args[1]);
+//                        cp.llamadas("list");
+//                        cp.llamadas();
+                    } catch (IOException ex) {
+                        Logger.getLogger(clientePrueba.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-        }.start();
-        i++;
-    }
-        
-        
-        
+            }.start();
+            i++;
+        }
+
     }
     
     
     
-    public void llamadas() throws IOException{
-        int i=0;
-        ArrayList<String> comandos=new ArrayList<>();
-        comandos.add("[LIST]");
-            Cliente cli = new Cliente(); 
+    public void llamadas(String str,String args1,String args2) throws IOException {
         
-            System.out.println("Iniciando cliente\n");
-            cli.startClient("[list]");
-          
-        
+        Cliente cli = new Cliente();
+
+        System.out.println("Iniciando cliente\n");
+        cli.startClient("["+ str + "]",args1,args2);
+//        cli.startClient("get 0988199820");
+//        cli.startClient("[list]");
+
     }
-    
+
     
     
     

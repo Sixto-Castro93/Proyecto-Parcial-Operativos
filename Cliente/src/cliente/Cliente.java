@@ -25,15 +25,16 @@ public class Cliente extends Conexion {
     BufferedReader in = null;
     boolean verificaConexion = false;
 
-    public void startClient(String comandos) //Método para iniciar el cliente
+    public void startClient(String comandos,String args1,String args2) //Método para iniciar el cliente
     {
         this.comandoscl = comandos;
-        this.startClient();
+        this.startClient(args1,args2);
     }
 
-    public void startClient() //Método para iniciar el cliente
+    public void startClient(String host, String puerto) //Método para iniciar el cliente
     {
-
+        HOST = host;
+        PUERTO = Integer.parseInt(puerto);
         try {
             out = new PrintWriter(cs.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
@@ -80,7 +81,7 @@ public class Cliente extends Conexion {
                     }
 
                     try {
-                       new Socket(Conexion.HOST, Conexion.PUERTO).close();
+                       new Socket(HOST,PUERTO).close();
                        verificaConexion = true;
                     } catch(Exception e) {
                         verificaConexion = false;
