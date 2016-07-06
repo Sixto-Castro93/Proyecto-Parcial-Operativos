@@ -28,18 +28,39 @@ public class ThreadServer extends Thread {
     }
 
     public void leerArchivo2(BaseNoSql base, String nombreArchivo, PrintWriter out) {
-
+        int cont =0;
+        boolean control=false;
         Iterator it = base.Base.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry mentry = (Map.Entry) it.next();
-            if (mentry.getKey().toString().startsWith(nombreArchivo) == true) {
+            if (mentry.getKey().toString().startsWith(nombreArchivo+".") == true) {
+                control=true;
                 System.out.print("key: " + mentry.getKey() + " & Value: ");
                 System.out.println(mentry.getValue());
-                out.println("Linea " + mentry.getValue().toString());
+//                if(cont==0){
+//                    out.println(mentry.getValue().toString());
+//                
+//                }else
+//                {
+                  out.println("Linea " + mentry.getValue().toString());  
+//                }
+//                cont++;
+            }
+            else{
+                if (mentry.getKey().toString().startsWith(nombreArchivo) == true) {
+                    System.out.print("key: " + mentry.getKey() + " & Value: ");
+                    System.out.println(mentry.getValue());
+                    out.println(mentry.getValue().toString());
+                }
             }
 
         }
-        out.println("Fin archivo");
+        if(control==true){
+            control=false;
+            out.println("Fin archivo");
+        }
+//        if(cont>1)
+//            out.println("Fin archivo");
 
     }
 
@@ -66,29 +87,12 @@ public class ThreadServer extends Thread {
                 switch (cmd) {
                     case "get":
                         String clave = comando[1];
-                        outputLine = base.getvalor(clave);
-                        if (outputLine.endsWith(".txt")) {
-                            leerArchivo2(base, clave, out);
-                        } else {
-                            System.out.println(outputLine);
-                            out.println(outputLine);
-                        }
-
+                        base.getvalor(clave, out);
                         //leerArchivo2(base, clave, out);
-                        /*if(outputLine.endsWith(".txt")){
-                         base.guardarArchivo(clave, outputLine.toString());
-                         }else{*/
-                        //out.println(outputLine);
-                        //}
                         break;
                     case "put":
-                        if (comando[2].endsWith(".txt")) {
-                            outputLine = base.putvalor2(comando[1], comando[2]);
-                            out.println(outputLine);
-                        } else {
-                            outputLine = base.putvalor(comando[1], comando[2]);
-                            out.println(outputLine);
-                        }
+                        outputLine = base.putvalorInput(comando[1], comando[2]);
+                        out.println(outputLine);
                         break;
                     case "set":
                         outputLine = base.setvalor(comando[1], comando[2]);

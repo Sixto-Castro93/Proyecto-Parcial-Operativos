@@ -37,6 +37,7 @@ public class Cliente extends Conexion {
     {
         HOST = host;
         PUERTO = Integer.parseInt(puerto);
+        String concat="";
         try {
             out = new PrintWriter(cs.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
@@ -72,9 +73,12 @@ public class Cliente extends Conexion {
                 if (fromServer.startsWith("Linea")) {
                     fromServer = fromServer.substring(6);
                     if (cont == 0) {
-                        System.out.println("Server: " + fromServer);
+                        concat = concat +""+ fromServer;
+                        System.out.println("Server: ");
+                        System.out.println(fromServer);
                         cont++;
                     } else {
+                        concat = concat +""+ fromServer;
                         System.out.println(fromServer);
                     }
                     band = false;
@@ -85,6 +89,8 @@ public class Cliente extends Conexion {
                 }
                 if (fromServer.startsWith("Fin")) {
                     band = true;
+                    System.out.println(concat);
+                    concat="";
                 }
 
                 boolean validez = true;
@@ -132,6 +138,7 @@ public class Cliente extends Conexion {
                                 comandoscl = "";
                                 break;
                             } else {
+
                                 fromUser = stdIn.readLine();
 
                             }
