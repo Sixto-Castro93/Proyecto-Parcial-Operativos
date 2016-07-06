@@ -293,12 +293,16 @@ public class Cliente extends Conexion {
                     y++;
                     c = s.charAt(y);
                 }
+                //Se valida que la clave no tenga retornos, tabs o saltos de linea
+                if(cont==1 && (c=='\r' || c=='\t' || c=='\n'))return null;
                 if (c != ' ') {
                     y++;
                 }
             }
             y--;
                 for (; y < s.length(); y++) {
+                    char c = s.charAt(y);
+                    if(c=='\r' || c=='\n')return null;
                     value += s.charAt(y);
                 }
             
