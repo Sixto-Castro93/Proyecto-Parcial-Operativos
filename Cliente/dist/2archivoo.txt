@@ -1,0 +1,19 @@
+list
+help
+list
+get 12
+del 12
+list
+get 12
+put 12 hola resucite
+get 12list
+get 12
+del 12
+list
+listlist
+get 12
+del 12
+list
+list
+help
+exit

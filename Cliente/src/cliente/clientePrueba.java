@@ -15,15 +15,16 @@ import java.util.logging.Logger;
  * @author Xtratech
  */
 public class clientePrueba {
-    
+     static  int i = 0;
     public static void main(String[] args) throws IOException {
-        int i = 0;
+       
         ArrayList<String> comandos = new ArrayList<>();
-//        comandos.add("put 0988199825 \"poiupoiu\"");
-//        comandos.add("del 0988199825");
-//        comandos.add("put 0988199825 \"poiupoiu\"");
-//        comandos.add("put 0988199826 \"poiupoiu\"");
-//        comandos.add("get 0988199825");
+        comandos.add("put, 0988199825, poiupoiu");
+        comandos.add("del, 0988199825");
+        comandos.add("get, 0988199825");
+        comandos.add("put, 0988199825, poiupoiu");
+        comandos.add("put, 0988199826, poiupoiu");
+      
         
 //        comandos.add("list");
 //        comandos.add("list");
@@ -31,22 +32,10 @@ public class clientePrueba {
 //        comandos.add("list");
 //        comandos.add("list");
 
-        while(i<1) {
+       for(i=0;i<100;i++) { 
            
-            new Thread() {
-                public void run() {
-                    clientePrueba cp = new clientePrueba();
-                    try {
-//                        cp.llamadas(comandos.get(0));
-                        cp.llamadas("put 0988199825 \"poiupoiu\"",args[0],args[1]);
-//                        cp.llamadas("list");
-//                        cp.llamadas();
-                    } catch (IOException ex) {
-                        Logger.getLogger(clientePrueba.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }.start();
-            i++;
+            ThreadPrueba tp = new ThreadPrueba(0, comandos, args[0],args[1]);
+            tp.start();
         }
 
     }
@@ -57,7 +46,7 @@ public class clientePrueba {
         
         Cliente cli = new Cliente();
 
-        System.out.println("Iniciando cliente\n");
+        System.out.println("Iniciando cliente\n"+"["+ str + "]");
         cli.startClient("["+ str + "]",args1,args2);
 //        cli.startClient("get 0988199820");
 //        cli.startClient("[list]");
