@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -57,7 +58,7 @@ public class BaseNoSql {
                 values = line.split("\\t");
                 String clave = values[0];
                 String valor = values[1];
-                System.out.println(clave + " "+ valor);
+                //System.out.println(clave + " "+ valor);
                 Base.put(clave, valor);
             }
 
@@ -101,6 +102,39 @@ public class BaseNoSql {
       }
     }
     
+    public void guardarDatos(String nombreArchivo, String value) {
+          String [] lineas = value.split("\\n");  
+          
+             
+            String valor = "";
+            int k =0;
+            int longitud = value.length();
+            int i=0;
+            if(longitud < 100) {
+                Base.put(nombreArchivo, value);
+            }
+            else{
+                while(i<(longitud-1)){
+                    valor="";
+                    for(int j=0; j<100; j++){
+                        if(i<= (longitud-1)){
+                            valor=valor+""+value.charAt(i);
+                            i++;
+                        }
+                        else
+                            break;
+                    }
+                    if(i==100){
+                        System.out.println(i);
+                    }
+                    Base.put(nombreArchivo+"."+k, valor);
+                    System.out.println(nombreArchivo+"."+k +"  "+ valor);
+                    k++;
+                }
+            }
+        }
+        
+    
     
     public void leerArchivo(String nombreArchivo) {
         
@@ -119,18 +153,37 @@ public class BaseNoSql {
     }
     
 
-    public synchronized String getvalor(String key) throws InterruptedException {
+    public synchronized void getvalor(String key, PrintWriter out) throws InterruptedException {
         while (escritura) {
             wait();
         }
         lectura = true;
         Object value = this.Base.get(key);
+        boolean control=false;
         lectura = false;
         notify();
         if (value == null) {
-            return "Key:";
+             value = this.Base.get(key+".0");
+             if(value!=null){
+                 int iterador =0;
+                 while(value!=null){
+                    value = this.Base.get(key+"."+iterador);
+                    if(value!=null){
+                      control = true;
+                      out.println("Linea " +value);
+                    }
+                    iterador++;
+                 }
+                 if(control == true){
+                    control=false;
+                    out.println("Fin archivo");
+                 }
+                 //return "";
+             }
+             out.println("Key:");
         } else {
-            return "Key:" + (String) value;
+            out.println("Key:" + (String) value);
+            
         }
     }
 
@@ -195,6 +248,11 @@ public class BaseNoSql {
     public synchronized String putvalor2(String key, String value) {
         this.Base.put(key, value);
         guardarArchivo(key, value);
+        return "Se agregó el nuevo objeto: " + key + ", a la lista";
+    }
+    
+    public synchronized String putvalorInput (String key, String value) {
+        guardarDatos(key, value);
         return "Se agregó el nuevo objeto: " + key + ", a la lista";
     }
 }
