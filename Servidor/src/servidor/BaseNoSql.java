@@ -51,7 +51,7 @@ public class BaseNoSql {
 
     public void iniciarBase2() {
         try {
-            BufferedReader in = new BufferedReader(new FileReader(".\\src\\servidor\\prueba.txt"));
+            BufferedReader in = new BufferedReader(new FileReader("prueba.txt"));
 
             String line;
             String[] values;
