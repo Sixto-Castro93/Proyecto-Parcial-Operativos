@@ -214,6 +214,39 @@ public class BaseNoSql {
             return "Registro eliminado con clave: " + key;
         }
     }
+    
+    public synchronized String delvalor2(String key) throws InterruptedException {
+        while (escritura || lectura) {
+            wait();
+        }
+        lectura = true;
+        Object value = this.Base.get(key);
+        lectura = false;
+        if (value == null) {
+            value = this.Base.get(key+".0");
+             if(value!=null){
+                 int iterador =0;
+                 while(value!=null){
+                    value = this.Base.get(key+"."+iterador);
+                    if(value!=null){
+                      this.Base.remove(key+"."+iterador);
+                    }
+                    iterador++;
+                 }
+                 return "Se borró el registro con clave: "+key;
+             }
+             else{
+                return "Error: Registro con clave: "+key+" no existe"; 
+                
+             }
+            //return "ERROR: Este key no existe ,consultelo con el comando list";
+        } else {
+            escritura = true;
+            this.Base.remove(key);
+            escritura = false;
+            return "Registro eliminado con clave: " + key;
+        }
+    }
 
     public synchronized String setvalor(String key, String newValue) throws InterruptedException {
 

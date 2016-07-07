@@ -98,7 +98,8 @@ public class ThreadServer extends Thread {
                         out.println(outputLine);
                         break;
                     case "del":
-                        outputLine = base.delvalor(comando[1]);
+                        //outputLine = base.delvalor(comando[1]);
+                        outputLine = base.delvalor2(comando[1]);
                         out.println(outputLine);
                         break;
                     case "list":
