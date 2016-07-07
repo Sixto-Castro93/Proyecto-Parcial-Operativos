@@ -39,8 +39,8 @@ public class Cliente extends Conexion {
         PUERTO = Integer.parseInt(puerto);
         String concat = "";
         long time_start, time_end;
-        long heapsize=Runtime.getRuntime().totalMemory();
-    System.out.println("heapsize is::"+heapsize);
+        long heapsize = Runtime.getRuntime().totalMemory();
+        // System.out.println("heapsize is::"+heapsize);
         try {
             out = new PrintWriter(cs.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
@@ -135,11 +135,11 @@ public class Cliente extends Conexion {
 
                         }
                         if (fromUser != null) {
-                             comando = validarComandos(fromUser);
+                            comando = validarComandos(fromUser);
                             if (comando != null) {
                                 validez = true;
                                 if (!comando[0].toLowerCase().equals("exit") && !comando[0].toLowerCase().equals("help")) {
-                                   // System.out.println(Arrays.toString(comando));
+                                    // System.out.println(Arrays.toString(comando));
                                     out.println(Arrays.toString(comando));
 
                                 }
@@ -150,7 +150,9 @@ public class Cliente extends Conexion {
                                 validez = false;
                             }
                         }
+
                     } while (!validez);
+
                     if (comando[0].toLowerCase().equals("exit")) {
                         break;
                     }
@@ -161,93 +163,100 @@ public class Cliente extends Conexion {
             in.close();
             cs.close();//Fin de la conexión
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("se termino la ejecucion");
         }
 
     }
 
     private String[] validarComandos(String s) {
         String[] comando = s.split(" ");
-        String cmd = comando[0].toLowerCase();
-        switch (cmd) {
-            case "get":
-                if (comando.length == 2) {
-                    return comando;
-                } else {
-                    System.out.println((char) 27 + "[34m" + "Error: El comando get recibe un parámetro de entrada");
-                    return null;
-                }
-            case "set":
-                if (comando.length >= 3) {
-                    comando = extraerDeComando(s);
-                    if (comando != null) {
+        String cmd = "";
+        try {
+            cmd = comando[0].toLowerCase();
+
+            switch (cmd) {
+                case "get":
+                    if (comando.length == 2) {
                         return comando;
                     } else {
-                        System.out.println((char) 27 + "[34m" + "Error: El comando set no cumple con la estructura: set <key> <value>");
+                        System.out.println((char) 27 + "[34m" + "Error: El comando get recibe un parámetro de entrada");
                         return null;
                     }
-                } else {
-                    System.out.println((char) 27 + "[34m" + "Error: El comando set recibe dos parámetros de entrada");
-                    return null;
-                }
+                case "set":
+                    if (comando.length >= 3) {
+                        comando = extraerDeComando(s);
+                        if (comando != null) {
+                            return comando;
+                        } else {
+                            System.out.println((char) 27 + "[34m" + "Error: El comando set no cumple con la estructura: set <key> <value>");
+                            return null;
+                        }
+                    } else {
+                        System.out.println((char) 27 + "[34m" + "Error: El comando set recibe dos parámetros de entrada");
+                        return null;
+                    }
 
-            case "put":
-                if (comando.length >= 3) {
-                    comando = extraerDeComando(s);
-                    if (comando != null) {
+                case "put":
+                    if (comando.length >= 3) {
+                        comando = extraerDeComando(s);
+                        if (comando != null) {
+                            return comando;
+                        } else {
+                            System.out.println((char) 27 + "[34m" + "Error: El comando put no cumple con la estructura: put <key> <value>");
+                            return null;
+                        }
+                    } else {
+                        System.out.println("(char)27 + \"[34m\"+Error: El comando put recibe dos parámetros de entrada");
+                        return null;
+                    }
+                case "del":
+                    if (comando.length == 2) {
                         return comando;
                     } else {
-                        System.out.println((char) 27 + "[34m" + "Error: El comando put no cumple con la estructura: put <key> <value>");
+                        System.out.println("(char)27 + \"[34m\"+Error: El comando del recibe solo un parámetro de entrada");
                         return null;
                     }
-                } else {
-                    System.out.println("(char)27 + \"[34m\"+Error: El comando put recibe dos parámetros de entrada");
-                    return null;
-                }
-            case "del":
-                if (comando.length == 2) {
-                    return comando;
-                } else {
-                    System.out.println("(char)27 + \"[34m\"+Error: El comando del recibe solo un parámetro de entrada");
-                    return null;
-                }
-            case "list":
-                if (comando.length == 1) {
-                    return comando;
-                } else {
-                    System.out.println("(char)27 + \"[34m\"+Error: El comando list no recibe parámetros de entrada");
-                    return null;
-                }
-            case "exit":
-                if (comando.length == 1) {
-                    return comando;
-                } else {
-                    System.out.println("(char)27 + \"[34m\"+Error: El comando exit no recibe parámetros de entrada");
-                    return null;
-                }
-            case "help":
-                if (comando.length == 1) {
-                    System.out.println((char) 27 + "[34m" + "Lista de comandos disponibles: \n"
-                            + (char) 27 + "[34m" + "get key: Operación get. Retorna el valor asociado a dicha clave.\n"
-                            + (char) 27 + "[34m" + "put key value: Almacena (en memoria) la clave, con el valor asociado. "
-                            + (char) 27 + "[34m" + "set key value: Edita (en memoria) el valor, con el valor asociado. "
-                            + (char) 27 + "[34m" + "El valor puede contener cualquier caracter, incluso caracteres especiales,tabs, y espacios en blanco.\n"
-                            + (char) 27 + "[34m" + "del key: Elimina la clave, con su valor asociado.\n"
-                            + (char) 27 + "[34m" + "list: Retorna la lista de todas las claves almacenadas. "
-                            + (char) 27 + "[34m" + "NO retorna los valores asociados a dichas claves.\n"
-                            + (char) 27 + "[34m" + "exit: Termina la conexión con el servidor y posteriormente, termina ejecución del programa cliente.\n"
-                    );
-                    return comando;
-                } else {
-                    System.out.println((char) 27 + "[34m" + "Error: El comando help no recibe parametros de entrada");
-                    return null;
-                }
-            default:
+                case "list":
+                    if (comando.length == 1) {
+                        return comando;
+                    } else {
+                        System.out.println("(char)27 + \"[34m\"+Error: El comando list no recibe parámetros de entrada");
+                        return null;
+                    }
+                case "exit":
+                    if (comando.length == 1) {
+                        return comando;
+                    } else {
+                        System.out.println("(char)27 + \"[34m\"+Error: El comando exit no recibe parámetros de entrada");
+                        return null;
+                    }
+                case "help":
+                    if (comando.length == 1) {
+                        System.out.println((char) 27 + "[34m" + "Lista de comandos disponibles: \n"
+                                + (char) 27 + "[34m" + "get key: Operación get. Retorna el valor asociado a dicha clave.\n"
+                                + (char) 27 + "[34m" + "put key value: Almacena (en memoria) la clave, con el valor asociado. "
+                                + (char) 27 + "[34m" + "set key value: Edita (en memoria) el valor, con el valor asociado. "
+                                + (char) 27 + "[34m" + "El valor puede contener cualquier caracter, incluso caracteres especiales,tabs, y espacios en blanco.\n"
+                                + (char) 27 + "[34m" + "del key: Elimina la clave, con su valor asociado.\n"
+                                + (char) 27 + "[34m" + "list: Retorna la lista de todas las claves almacenadas. "
+                                + (char) 27 + "[34m" + "NO retorna los valores asociados a dichas claves.\n"
+                                + (char) 27 + "[34m" + "exit: Termina la conexión con el servidor y posteriormente, termina ejecución del programa cliente.\n"
+                        );
+                        return comando;
+                    } else {
+                        System.out.println((char) 27 + "[34m" + "Error: El comando help no recibe parametros de entrada");
+                        return null;
+                    }
+                default:
 
-                System.out.println((char) 27 + "[34m" + "Error: El comando " + comando[0] + " no existe");
+                    System.out.println((char) 27 + "[34m" + "Error: El comando " + comando[0] + " no existe");
 
-                return null;
+                    return null;
+            }
+        } catch (Exception e) {
+            System.out.println((char) 27 + "[34m" + "Error: El comando ' ' no existe");
         }
+        return null;
     }
 
     private static String[] extraerDeComando(String s) {
@@ -257,13 +266,13 @@ public class Cliente extends Conexion {
         String value = "";
         if (comando.length >= 3) {
             cmdFinal.add(comando[0]);
-            if (clave.contains("\r") || clave.contains("\t") || clave.contains("\n")) {
+            if (clave.contains("\r") || clave.contains("\t")) {
                 return null;
             } else {
                 cmdFinal.add(clave);
             }
             for (int z = 2; z < comando.length; z++) {
-                if (comando[z].contains("\r") || comando[z].contains("\n")) {
+                if (comando[z].contains("\r")) {
                     return null;
                 } else {
                     if (z != 2) {

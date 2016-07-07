@@ -1,0 +1,5 @@
+put 6677 yy
+list
+get 6677
+list
+get 4
