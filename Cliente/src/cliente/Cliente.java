@@ -74,12 +74,12 @@ public class Cliente extends Conexion {
                     fromServer = fromServer.substring(6);
                     if (cont == 0) {
                         concat = concat +""+ fromServer;
-                        System.out.println("Server: ");
-                        System.out.println(fromServer);
+                        //System.out.println("Server: ");
+                        //System.out.println(fromServer);
                         cont++;
                     } else {
                         concat = concat +""+ fromServer;
-                        System.out.println(fromServer);
+                        //System.out.println(fromServer);
                     }
                     band = false;
 
@@ -89,105 +89,71 @@ public class Cliente extends Conexion {
                 }
                 if (fromServer.startsWith("Fin")) {
                     band = true;
-                    System.out.println(concat);
+                    System.out.println((char) 27 + "[31m" + concat);
                     concat="";
+                    cont=0;
                 }
 
                 boolean validez = true;
                 if (band == true) {
-//                    do {
-//                        try {
-//                            new Socket(HOST, PUERTO).close();
-//                            verificaConexion = true;
-//                        } catch (Exception e) {
-//                            verificaConexion = false;
-//                        }
-//                        if (verificaConexion == false) {
-//                            cs.close();
-//                            System.out.println("El servidor ha dejado de ejecutarse");
-//                            System.exit(0);
-//                        }
 
-//<<<<<<< HEAD
-//                        }
-//                        fromUser = stdIn.readLine();
-//                        if (fromUser != null) {
-//                            String[] comando =validarComandos(fromUser);
-//                            if (comando!=null) {
-//                                validez=true;
-//                                if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help")) {
-//                                    System.out.println(Arrays.toString(comando));
-//                                    out.println(Arrays.toString(comando));
-//
-//                                }
-//                                if (fromUser.toLowerCase().equals("help")) {
-//                                    validez = false;
-//                                }
-//                            }else
-//                                validez = false;
-//                        }
-//                    } while (!validez);
-//                }
-//=======
-                       // System.out.println((char) 27 + "[31m" + "Server: " + fromServer);
-                        do {
+                    do {
 
-                            System.out.print((char) 27 + "[34m" + "Client: ");
-                            if (!comandoscl.equals("")) {
-                                out.println(comandoscl);
-                                comandoscl = "";
-                                break;
-                            } else {
+                        System.out.print((char) 27 + "[34m" + "Client: ");
+                        if (!comandoscl.equals("")) {
+                            out.println(comandoscl);
+                            comandoscl = "";
+                            break;
+                        } else {
 
-                                fromUser = stdIn.readLine();
+                            fromUser = stdIn.readLine();
 
-                            }
+                        }
 
-                            try {
-                                new Socket(Conexion.HOST, Conexion.PUERTO).close();
-                                verificaConexion = false;
-                            } catch (Exception e) {
-                                verificaConexion = true;
-                            }
-                            if (verificaConexion == false) {
-                                cs.close();
-                                System.out.println("El servidor ha dejado de ejecutarse");
-                                System.exit(0);
-                                break;
+                        try {
+                            new Socket(Conexion.HOST, Conexion.PUERTO).close();
+                            verificaConexion = false;
+                        } catch (Exception e) {
+                            verificaConexion = true;
+                        }
+                        if (verificaConexion == false) {
+                            cs.close();
+                            System.out.println("El servidor ha dejado de ejecutarse");
+                            System.exit(0);
+                            break;
 
-                            }
-//                            fromUser = stdIn.readLine();
-                            if (fromUser != null) {
-                                String[] comando = validarComandos(fromUser);
-                                if (comando != null) {
-                                    validez = true;
-                                    if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help")) {
-                                        System.out.println(Arrays.toString(comando));
-                                        out.println(Arrays.toString(comando));
+                        }
+                        if (fromUser != null) {
+                            String[] comando = validarComandos(fromUser);
+                            if (comando != null) {
+                                validez = true;
+                                if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help")) {
+                                    System.out.println(Arrays.toString(comando));
+                                    out.println(Arrays.toString(comando));
 
-                                    }
-                                    if (fromUser.toLowerCase().equals("help")) {
-                                        validez = false;
-                                    }
-                                } else {
+                                }
+                                if (fromUser.toLowerCase().equals("help")) {
                                     validez = false;
                                 }
+                            } else {
+                                validez = false;
                             }
-                        } while (!validez);
-//>>>>>>> b51db7d738b87c3c0a05b5ceb1158be11adbf54d
-                        if (fromUser.toLowerCase().equals("exit")) {
-                            break;
                         }
+                    } while (!validez);
+                    if (fromUser.toLowerCase().equals("exit")) {
+                        break;
                     }
                 }
-                out.close();
-                in.close();
-                cs.close();//Fin de la conexión
-            }catch (Exception e) {
-            System.out.println(e.getMessage());
+            }
+        out.close();
+        in.close();
+        cs.close();//Fin de la conexión
+        }
+        catch (Exception e) {
+        System.out.println(e.getMessage());
         }
 
-        }
+    }
 
     
 

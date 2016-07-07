@@ -12,8 +12,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -124,11 +126,11 @@ public class BaseNoSql {
                         else
                             break;
                     }
-                    if(i==100){
-                        System.out.println(i);
-                    }
+//                    if(i==100){
+//                        System.out.println(i);
+//                    }
                     Base.put(nombreArchivo+"."+k, valor);
-                    System.out.println(nombreArchivo+"."+k +"  "+ valor);
+                    //System.out.println(nombreArchivo+"."+k +"  "+ valor);
                     k++;
                 }
             }
@@ -176,7 +178,7 @@ public class BaseNoSql {
                  }
                  if(control == true){
                     control=false;
-                    out.println("Fin archivo");
+                    out.println("Fin resultado - key:");
                  }
                  //return "";
              }else
@@ -194,6 +196,38 @@ public class BaseNoSql {
         }
         lectura = true;
         lista = new ArrayList<String>(this.Base.keySet());
+        lectura = false;
+        return lista;
+    }
+    
+    public synchronized ArrayList listvalor2() throws InterruptedException {
+        ArrayList lista;
+        int tam;
+        int j=0;
+        String valor;
+        String [] arreglo;
+        while (escritura) {
+            wait();
+        }
+        lectura = true;
+        lista = new ArrayList<String>(this.Base.keySet());
+        tam = lista.size();
+        for(int i=0; i<tam; i++){
+            //if(lista.get(i).toString().s)
+            valor=lista.get(i).toString();
+            arreglo= valor.split("\\.");
+            
+            if(arreglo.length !=0){
+                valor=arreglo[0];
+                lista.set(i, arreglo[0]);
+            }
+        }
+        Set se =new HashSet(lista);
+        lista.clear();
+        lista = new ArrayList<String>(se);
+
+        
+        
         lectura = false;
         return lista;
     }

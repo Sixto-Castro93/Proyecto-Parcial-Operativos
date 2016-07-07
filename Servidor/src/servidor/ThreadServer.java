@@ -104,7 +104,8 @@ public class ThreadServer extends Thread {
                         break;
                     case "list":
                         ArrayList lista;
-                        lista = base.listvalor();
+                        //lista = base.listvalor();
+                        lista = base.listvalor2();
                         //System.out.println(outputLine);
                         out.println("lista" + " " + lista);
                         //out.println(outputLine);
