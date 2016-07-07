@@ -112,26 +112,27 @@ public class BaseNoSql {
             int k =0;
             int longitud = value.length();
             int i=0;
-            if(longitud < 100) {
+            int inicio=0;
+            int fin=0;
+            if(longitud < 50000) {
                 Base.put(nombreArchivo, value);
             }
             else{
-                while(i<(longitud-1)){
-                    valor="";
-                    for(int j=0; j<100; j++){
-                        if(i<= (longitud-1)){
-                            valor=valor+""+value.charAt(i);
-                            i++;
+                while(fin<(longitud-1)){
+                    fin=fin+50000;
+                    if(fin<= (longitud-1)){
+                            valor=value.substring(inicio, fin);
+                            inicio=fin+1;
+                             Base.put(nombreArchivo+"."+k, valor);
+                    //System.out.println(nombreArchivo+"."+k +"  "+ valor);
+                    k++;
+                            
                         }
-                        else
-                            break;
-                    }
+                    else break;
 //                    if(i==100){
 //                        System.out.println(i);
 //                    }
-                    Base.put(nombreArchivo+"."+k, valor);
-                    //System.out.println(nombreArchivo+"."+k +"  "+ valor);
-                    k++;
+                   
                 }
             }
         }
@@ -320,6 +321,6 @@ public class BaseNoSql {
     
     public synchronized String putvalorInput (String key, String value) {
         guardarDatos(key, value);
-        return "Se agregó el nuevo objeto: " + key + ", a la lista";
+        return "OK";
     }
 }

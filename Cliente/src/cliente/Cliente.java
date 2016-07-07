@@ -37,7 +37,10 @@ public class Cliente extends Conexion {
     {
         HOST = host;
         PUERTO = Integer.parseInt(puerto);
-        String concat="";
+        String concat = "";
+        long time_start, time_end;
+        long heapsize=Runtime.getRuntime().totalMemory();
+    System.out.println("heapsize is::"+heapsize);
         try {
             out = new PrintWriter(cs.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
@@ -46,8 +49,9 @@ public class Cliente extends Conexion {
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String fromServer;
             String fromUser = "";
-
+            time_start = 0;
             while ((fromServer = in.readLine()) != null) {
+
                 if (fromServer.startsWith("lista")) {
                     String[] lista;
                     String last, outputLine;
@@ -73,30 +77,35 @@ public class Cliente extends Conexion {
                 if (fromServer.startsWith("Linea")) {
                     fromServer = fromServer.substring(6);
                     if (cont == 0) {
-                        concat = concat +""+ fromServer;
+                        concat = concat + "" + fromServer;
                         //System.out.println("Server: ");
                         //System.out.println(fromServer);
                         cont++;
                     } else {
-                        concat = concat +""+ fromServer;
+                        concat = concat + "" + fromServer;
                         //System.out.println(fromServer);
                     }
                     band = false;
 
                 } else {
-                     System.out.println((char) 27 + "[31m" + "Server: " + fromServer);
-                     
+                    time_end = System.currentTimeMillis();
+                    float res = time_end - time_start;
+                    System.out.println("Segundos: " + res / 1000);
+
+                    time_start = System.currentTimeMillis();
+                    System.out.println((char) 27 + "[31m" + "Server: " + fromServer);
+
                 }
                 if (fromServer.startsWith("Fin")) {
                     band = true;
                     System.out.println((char) 27 + "[31m" + concat);
-                    concat="";
-                    cont=0;
+                    concat = "";
+                    cont = 0;
                 }
 
                 boolean validez = true;
                 if (band == true) {
-
+                    String[] comando = null;
                     do {
 
                         System.out.print((char) 27 + "[34m" + "Client: ");
@@ -107,6 +116,8 @@ public class Cliente extends Conexion {
                         } else {
 
                             fromUser = stdIn.readLine();
+
+                            time_start = System.currentTimeMillis();
 
                         }
 
@@ -124,15 +135,15 @@ public class Cliente extends Conexion {
 
                         }
                         if (fromUser != null) {
-                            String[] comando = validarComandos(fromUser);
+                             comando = validarComandos(fromUser);
                             if (comando != null) {
                                 validez = true;
-                                if (!fromUser.toLowerCase().equals("exit") && !fromUser.toLowerCase().equals("help")) {
-                                    System.out.println(Arrays.toString(comando));
+                                if (!comando[0].toLowerCase().equals("exit") && !comando[0].toLowerCase().equals("help")) {
+                                   // System.out.println(Arrays.toString(comando));
                                     out.println(Arrays.toString(comando));
 
                                 }
-                                if (fromUser.toLowerCase().equals("help")) {
+                                if (comando[0].toLowerCase().equals("help")) {
                                     validez = false;
                                 }
                             } else {
@@ -140,22 +151,20 @@ public class Cliente extends Conexion {
                             }
                         }
                     } while (!validez);
-                    if (fromUser.toLowerCase().equals("exit")) {
+                    if (comando[0].toLowerCase().equals("exit")) {
                         break;
                     }
+
                 }
             }
-        out.close();
-        in.close();
-        cs.close();//Fin de la conexión
-        }
-        catch (Exception e) {
-        System.out.println(e.getMessage());
+            out.close();
+            in.close();
+            cs.close();//Fin de la conexión
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
     }
-
-    
 
     private String[] validarComandos(String s) {
         String[] comando = s.split(" ");
@@ -244,34 +253,27 @@ public class Cliente extends Conexion {
     private static String[] extraerDeComando(String s) {
         ArrayList<String> cmdFinal = new ArrayList<>();
         String[] comando = s.split(" ");
-        String value = new String();
+        String clave = comando[1];
+        String value = "";
         if (comando.length >= 3) {
             cmdFinal.add(comando[0]);
-            cmdFinal.add(comando[1]);
-            int cont = 0;
-            int y = 0;
-            while (cont < 2) {
-                char c = s.charAt(y);
-                if (c == ' ') {
-                    cont++;
-                }
-                while (c == ' ') {
-                    y++;
-                    c = s.charAt(y);
-                }
-                //Se valida que la clave no tenga retornos, tabs o saltos de linea
-                if(cont==1 && (c=='\r' || c=='\t' || c=='\n'))return null;
-                if (c != ' ') {
-                    y++;
+            if (clave.contains("\r") || clave.contains("\t") || clave.contains("\n")) {
+                return null;
+            } else {
+                cmdFinal.add(clave);
+            }
+            for (int z = 2; z < comando.length; z++) {
+                if (comando[z].contains("\r") || comando[z].contains("\n")) {
+                    return null;
+                } else {
+                    if (z != 2) {
+                        value = value + " " + comando[z];
+                    } else {
+                        value = value + comando[z];
+                    }
                 }
             }
-            y--;
-                for (; y < s.length(); y++) {
-                    char c = s.charAt(y);
-                    if(c=='\r' || c=='\n')return null;
-                    value += s.charAt(y);
-                }
-            
+
         } else {
             return null;
         }
