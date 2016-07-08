@@ -44,10 +44,10 @@ public class clientePrueba {
     
     public void llamadas(String str,String args1,String args2) throws IOException {
         
-        Cliente cli = new Cliente();
+        Cliente cli = new Cliente(args1,args2);
 
         System.out.println("Iniciando cliente\n"+"["+ str + "]");
-        cli.startClient("["+ str + "]",args1,args2);
+        cli.startClient("["+ str + "]");
 //        cli.startClient("get 0988199820");
 //        cli.startClient("[list]");
 

@@ -18,9 +18,9 @@ public class MainServidor
 {
     public static void main(String[] args) throws IOException
     {        
-        Servidor serv = new Servidor(); //Se crea el servidor
+        Servidor serv = new Servidor(args[0]); //Se crea el servidor
         
         System.out.println("Iniciando servidor\n");
-        serv.startServer(args[0]); //Se inicia el servidor
+        serv.startServer(); //Se inicia el servidor
     }
 }

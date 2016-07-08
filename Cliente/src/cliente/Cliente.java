@@ -17,8 +17,8 @@ public class Cliente extends Conexion {
     String[] comandos = {"get", "set", "del", "list", "exit"};
     String comandoscl = "";
 
-    public Cliente() throws IOException {
-        super("cliente");
+ public Cliente(String args1,String args2) throws IOException {
+        super("cliente" ,args1,args2);
     } //Se usa el constructor para cliente de Conexion
 
     PrintWriter out = null;
@@ -27,16 +27,15 @@ public class Cliente extends Conexion {
     int cont = 0;
     boolean band = true;
 
-    public void startClient(String comandos, String args1, String args2) //Método para iniciar el cliente
+    public void startClient(String comandos) //Método para iniciar el cliente
     {
         this.comandoscl = comandos;
-        this.startClient(args1, args2);
+        this.startClient();
     }
 
-    public void startClient(String host, String puerto) //Método para iniciar el cliente
+    public void startClient() //Método para iniciar el cliente
     {
-        HOST = host;
-        PUERTO = Integer.parseInt(puerto);
+   
         String concat = "";
         long time_start, time_end;
         long heapsize = Runtime.getRuntime().totalMemory();
@@ -121,19 +120,20 @@ public class Cliente extends Conexion {
 
                         }
 
-                        try {
-                            new Socket(Conexion.HOST, Conexion.PUERTO).close();
-                            verificaConexion = false;
-                        } catch (Exception e) {
-                            verificaConexion = true;
-                        }
-                        if (verificaConexion == false) {
-                            cs.close();
-                            System.out.println("El servidor ha dejado de ejecutarse");
-                            System.exit(0);
-                            break;
-
-                        }
+//                        try {
+//                            System.out.println("El servidor ha dejado de ejecutarse"+Conexion.HOST+Conexion.PUERTO);
+//                            new Socket(Conexion.HOST, Conexion.PUERTO).close();
+//                            verificaConexion = false;
+//                        } catch (Exception e) {
+//                            verificaConexion = true;
+//                        }
+//                        if (verificaConexion == false) {
+//                            cs.close();
+//                            System.out.println("El servidor ha dejado de ejecutarse");
+//                            System.exit(0);
+//                            break;
+//
+//                        }
                         if (fromUser != null) {
                             comando = validarComandos(fromUser);
                             if (comando != null) {

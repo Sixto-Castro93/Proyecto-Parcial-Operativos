@@ -23,8 +23,9 @@ public class Conexion
     protected Socket cs; //Socket del cliente
     protected DataOutputStream salidaServidor, salidaCliente; //Flujo de datos de salida
     
-    public Conexion(String tipo) throws IOException //Constructor
+    public Conexion(String tipo,String args) throws IOException //Constructor
     {
+        PUERTO=Integer.parseInt(args);
         if(tipo.equalsIgnoreCase("servidor"))
         {
               try {

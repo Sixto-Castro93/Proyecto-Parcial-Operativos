@@ -9,9 +9,9 @@ public class MainCliente
 {
     public static void main(String[] args) throws IOException
     {  
-        Cliente cli = new Cliente(); 
+        Cliente cli = new Cliente(args[0],args[1]); 
         
         System.out.println("Iniciando cliente\n");
-        cli.startClient(args[0],args[1]); //Se inicia el cliente
+        cli.startClient(); //Se inicia el cliente
     }
 }
