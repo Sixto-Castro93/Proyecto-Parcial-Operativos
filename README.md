@@ -33,7 +33,17 @@ La base NoSQL fue implementada mediante una clase que contiene un atributo hashm
 
 Los hilos que sirven tanto para el productor y consumidor fueron implementados mediante el ExecutorService donde coloca los hilos en un ‘pool’ para limitar el número de hilos de conexión ya que esto ocasionaría que nuestro proceso ocupe demasiada memoria en un caso que requiera demasiadas conexiones.
 
-
+##EJECUCIÓN EN LINUX
+1. Luego de descargar el proyecto completo, en una carpeta nueva (por comodidad) extraer el archivo "cliente" de la ruta:       Proyecto-Parcial-Operativos/Cliente/src/ 
+Hacer lo mismo para la carpeta "servidor" y pegarla en la misma carpeta nueva.
+2. Abrir el terminal, y acceder a la misma ruta donde se ha creado la nueva carpeta. Primero entrar al directorio cliente y ejecutar el comando:
+        make
+De igual manera acceder al directorio servidor, y ejecutar el mismo comando.
+3. Para ejecutar el servidor: Acceder desde un terminal a la ruta de la carpeta nueva > servidor. Y dentro de este directorio ejecutar el comando:
+        java -cp ../ servidor.MainServidor #PORT
+Repetir el mismo paso desde otro servidor para ejecutar el cliente, con el comando:
+        java -cp ../ cliente.MainCliente #HOST #PORT
+Nota: El host puede ser el localhost, y #PORT puede ser cualquier número de puerto.
 
 
 ##CONCLUSIONES
