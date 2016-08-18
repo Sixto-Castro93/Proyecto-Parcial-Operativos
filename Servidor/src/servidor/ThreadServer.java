@@ -80,8 +80,18 @@ public class ThreadServer extends Thread {
             out.println("Te estoy atendiendo en hora buena, dime tu petición. Si desea consulte los comandos disponibles con 'help'");       
             while ((inputLine = in.readLine()) != null) {
                 inputLine = inputLine.substring(1, inputLine.length() - 1);
-                //   System.out.println(inputLine);
+                   System.out.println(inputLine);
                 String[] comando = inputLine.split(", ");
+                                String valorp="";
+                for(int ii=2;ii<comando.length;ii++){
+                    if((ii+1)!=comando.length){
+                valorp=valorp+comando[ii]+", ";
+                    }
+                    else {
+                    valorp=valorp+comando[ii];
+                
+                    }
+                }
                 //   System.out.println(Arrays.toString(comando));
                 String cmd = comando[0].toLowerCase();
                 switch (cmd) {
@@ -91,7 +101,7 @@ public class ThreadServer extends Thread {
                         //leerArchivo2(base, clave, out);
                         break;
                     case "put":
-                        outputLine = base.putvalorInput(comando[1], comando[2]);
+                        outputLine = base.putvalorInput(comando[1],valorp);
                         out.println(outputLine);
                         break;
                     case "set":
